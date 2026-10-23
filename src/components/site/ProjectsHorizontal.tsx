@@ -148,14 +148,14 @@ export function ProjectsHorizontal() {
                 image={ap4Campus}
                 imgWidth={1600}
                 imgHeight={900}
-                className="h-full w-full"
+                className="w-full min-h-0 flex-1"
               />
               <ProjectCard
                 name="ABZ"
                 image={abzLed}
                 imgWidth={1600}
                 imgHeight={900}
-                className="h-full w-full"
+                className="w-full min-h-0 flex-1"
               />
             </div>
 
