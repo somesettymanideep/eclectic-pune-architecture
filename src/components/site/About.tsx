@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
 
 const PARAGRAPHS = [
-  "Founded in 2006 by Pritika Manjrekar, Moco Design Studio has been creating the cityscape of Pune. Our impact ranges from IT parks, corporate campuses, high-end residential communities to educational institutions to name a few.",
-  "A team of architects, designers and strategists have an authentically collaborative approach towards architecture. The Design Studio is empowered by a diverse and rich network of consultants and vendor partners.",
-  "With a focus on Design Excellence and Efficiency Moco Design Studio is committed to catalyzing impact through architecture.",
+  "Studio for Eclectic Architecture is a dynamic firm offering various design solutions. Our core services encompass architecture, interiors, and landscape, ensuring a comprehensive approach to every project we undertake.",
+  "We specialize in creating unique designs for residential homes, commercial spaces, villas, apartments, layouts, and resorts, providing tailored solutions that reflect functionality and aesthetic appeal.",
 ];
 
 export function About() {
@@ -17,9 +16,11 @@ export function About() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="font-display text-4xl font-light leading-tight tracking-wide text-foreground md:text-5xl lg:text-6xl"
         >
-          Moco Design
+          Studio for
           <br />
-          Studio
+          Eclectic
+          <br />
+          Architecture
         </motion.h2>
 
         <div className="space-y-5 md:pt-2">
