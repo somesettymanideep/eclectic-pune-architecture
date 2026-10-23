@@ -136,7 +136,7 @@ export function ProjectsHorizontal() {
             <ProjectCard
               name="Amar Summit"
               image={amarSummit}
-              imgWidth={900}
+              imgWidth={912}
               imgHeight={1600}
               className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
@@ -148,14 +148,14 @@ export function ProjectsHorizontal() {
                 image={ap4Campus}
                 imgWidth={1600}
                 imgHeight={900}
-                className="h-full w-full"
+                className="w-full min-h-0 flex-1"
               />
               <ProjectCard
                 name="ABZ"
                 image={abzLed}
                 imgWidth={1600}
                 imgHeight={900}
-                className="h-full w-full"
+                className="w-full min-h-0 flex-1"
               />
             </div>
 
@@ -163,7 +163,7 @@ export function ProjectsHorizontal() {
             <ProjectCard
               name="Poonawalla Towers"
               image={poonawallaTowers}
-              imgWidth={900}
+              imgWidth={912}
               imgHeight={1600}
               className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
