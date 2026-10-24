@@ -12,13 +12,6 @@
 @theme inline {
   --font-display: "Archivo", "Helvetica Neue", sans-serif;
   --font-body: "DM Sans", "Helvetica Neue", sans-serif;
-  --font-services: "Montserrat", "Helvetica Neue", sans-serif;
-
-  --color-gold: var(--gold);
-  --color-services-bg: var(--services-bg);
-  --color-services-card: var(--services-card);
-  --color-services-foreground: var(--services-foreground);
-  --color-services-muted: var(--services-muted);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -69,13 +62,6 @@
   --border: oklch(0.22 0 0);
   --input: oklch(0.22 0 0);
   --ring: oklch(0.4 0 0);
-
-  /* Light luxury services section */
-  --gold: oklch(0.78 0.12 88);
-  --services-bg: oklch(0.96 0.015 85);
-  --services-card: oklch(1 0 0);
-  --services-foreground: oklch(0.18 0 0);
-  --services-muted: oklch(0.47 0 0);
 }
 
 @layer base {
