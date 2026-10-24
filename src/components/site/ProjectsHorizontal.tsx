@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  animate,
   motion,
   useMotionValue,
   useScroll,
@@ -61,6 +62,15 @@ export function ProjectsHorizontal() {
   const shiftRef = useRef(0);
   shiftRef.current = shift;
 
+  // Auto scroll: on = pinned, vertical-scroll-driven track; off = free drag + arrows
+  const [autoScroll, setAutoScroll] = useState(true);
+  const autoScrollRef = useRef(true);
+  autoScrollRef.current = autoScroll;
+  const autoMode = useMotionValue(1);
+  useEffect(() => {
+    autoMode.set(autoScroll ? 1 : 0);
+  }, [autoScroll, autoMode]);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
@@ -69,13 +79,17 @@ export function ProjectsHorizontal() {
   const dragX = useMotionValue(0);
   const baseX = useTransform(scrollYProgress, [0, 1], [0, -shift]);
   const x = useTransform(() =>
-    clamp(baseX.get() + dragX.get(), -shiftRef.current, 0),
+    clamp(
+      baseX.get() * autoMode.get() + dragX.get(),
+      -shiftRef.current,
+      0,
+    ),
   );
 
-  const dotLeft = useTransform(
-    scrollYProgress,
-    (v) => `${clamp(v, 0, 1) * 100}%`,
-  );
+  const dotLeft = useTransform(x, (v) => {
+    const max = Math.max(1, shiftRef.current);
+    return `${clamp(-v / max, 0, 1) * 100}%`;
+  });
 
   useEffect(() => {
     const measure = () => {
@@ -91,6 +105,40 @@ export function ProjectsHorizontal() {
       window.clearTimeout(t);
     };
   }, []);
+
+  // Auto scroll toggle — off restores the original first-project layout on re-enable
+  const toggleAutoScroll = () => {
+    if (autoScrollRef.current) {
+      dragX.set(x.get());
+      setAutoScroll(false);
+      return;
+    }
+    dragX.set(0);
+    const el = sectionRef.current;
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < -40) {
+        window.scrollTo({
+          top: rect.top + window.scrollY,
+          behavior: "instant" as ScrollBehavior,
+        });
+      }
+    }
+    setAutoScroll(true);
+  };
+
+  // Arrow navigation — nudges the track when auto scroll is off
+  const nudge = (dir: 1 | -1) => {
+    animate(
+      dragX,
+      clamp(
+        dragX.get() + dir * window.innerWidth * 0.6,
+        -shiftRef.current,
+        0,
+      ),
+      { duration: 0.6, ease: [0.32, 0.72, 0, 1] },
+    );
+  };
 
   // Pointer drag with momentum nudge
   const dragging = useRef(false);
@@ -115,17 +163,38 @@ export function ProjectsHorizontal() {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative h-[190svh] bg-background"
+      className={`relative bg-background ${
+        autoScroll ? "h-[190svh]" : "h-screen"
+      }`}
     >
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div
+        className={`group flex h-screen flex-col justify-center overflow-hidden ${
+          autoScroll ? "sticky top-0" : ""
+        }`}
+      >
         {/* Section header */}
         <div className="flex items-end justify-between px-5 pb-5 md:px-8">
           <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
             Our Projects
           </h2>
-          <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 09 )
-          </span>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={toggleAutoScroll}
+              aria-pressed={autoScroll}
+              className="flex items-center gap-2 rounded-full border border-border px-3.5 py-1.5 text-[10px] tracking-[0.2em] text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+            >
+              <span
+                className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                  autoScroll ? "bg-foreground" : "bg-border"
+                }`}
+              />
+              AUTO SCROLL {autoScroll ? "ON" : "OFF"}
+            </button>
+            <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
+              ( 09 )
+            </span>
+          </div>
         </div>
 
         {/* Horizontal track — driven by vertical scroll, also draggable */}
@@ -230,6 +299,66 @@ export function ProjectsHorizontal() {
               </span>
             </a>
           </motion.div>
+        </div>
+
+        {/* Navigation arrows — fade in on hover when auto scroll is off */}
+        <div
+          className={`absolute left-4 top-1/2 z-20 -translate-y-1/2 transition-opacity duration-300 md:left-8 ${
+            autoScroll
+              ? "pointer-events-none opacity-0"
+              : "opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={() => nudge(1)}
+            aria-label="Previous projects"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-foreground text-background shadow-lg transition-transform hover:scale-105 active:scale-95 md:h-12 md:w-12"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+          </button>
+        </div>
+        <div
+          className={`absolute right-4 top-1/2 z-20 -translate-y-1/2 transition-opacity duration-300 md:right-8 ${
+            autoScroll
+              ? "pointer-events-none opacity-0"
+              : "opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={() => nudge(-1)}
+            aria-label="Next projects"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-foreground text-background shadow-lg transition-transform hover:scale-105 active:scale-95 md:h-12 md:w-12"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </button>
         </div>
 
         {/* Progress indicator — dot + line, as in reference */}
