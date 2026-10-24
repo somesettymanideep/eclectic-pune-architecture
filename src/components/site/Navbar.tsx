@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import seaLogo from "@/assets/sea-logo.png.asset.json";
 
 const MENU = [
   { label: "Expertise", active: true },
@@ -12,29 +13,31 @@ const MENU = [
 export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <nav className="flex items-start justify-between px-5 py-4 md:px-8">
+      {/* translucent scrim so the logo and menu stay readable over the video */}
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 via-background/30 to-transparent" />
+
+      <nav className="relative flex items-center justify-between px-5 py-3 md:px-8">
         <Link
           to="/"
-          className="block bg-foreground px-2.5 py-2 text-background shadow-lg shadow-black/40"
-          aria-label="Moco Design Studio — home"
+          className="block"
+          aria-label="SEA — Studio for Eclectic Architecture — home"
         >
-          <span className="block font-display text-lg font-semibold leading-[0.95] tracking-[0.18em]">
-            MO
-            <br />
-            CO
-          </span>
-          <span className="mt-1 block text-[6px] font-medium uppercase tracking-[0.22em] opacity-70">
-            design studio
-          </span>
+          <img
+            src={seaLogo.url}
+            alt="SEA — Studio for Eclectic Architecture"
+            className="h-12 w-auto md:h-16"
+            width={944}
+            height={560}
+          />
         </Link>
 
-        <ul className="hidden items-center gap-6 pt-2 md:flex">
+        <ul className="hidden items-center gap-8 pt-2 md:flex">
           {MENU.map((item) => (
             <li key={item.label}>
               <a
                 href="#"
                 onClick={(e) => e.preventDefault()}
-                className={`text-[11px] font-medium tracking-[0.14em] transition-colors duration-300 ${
+                className={`text-sm font-medium uppercase tracking-[0.14em] transition-colors duration-300 ${
                   item.active
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -50,7 +53,7 @@ export function Navbar() {
         <button
           type="button"
           aria-label="Open menu"
-          className="mt-2 flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
         >
           <span className="h-px w-6 bg-foreground" />
           <span className="h-px w-6 bg-foreground" />
