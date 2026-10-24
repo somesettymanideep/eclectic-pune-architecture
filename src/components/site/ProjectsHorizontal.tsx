@@ -117,9 +117,9 @@ export function ProjectsHorizontal() {
       ref={sectionRef}
       className="relative h-[190svh] bg-background"
     >
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
         {/* Section header */}
-        <div className="flex items-end justify-between px-5 pb-5 md:px-8">
+        <div className="flex items-end justify-between px-5 pb-3 md:px-8">
           <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
             Our Projects
           </h2>
@@ -233,7 +233,7 @@ export function ProjectsHorizontal() {
         </div>
 
         {/* Progress indicator — dot + line, as in reference */}
-        <div className="flex items-center gap-4 px-5 pt-7 md:px-8">
+        <div className="flex items-center gap-4 px-5 pt-5 md:px-8">
           <div className="relative h-px w-56 max-w-[60vw] bg-border md:w-72">
             <motion.span
               style={{ left: dotLeft }}
