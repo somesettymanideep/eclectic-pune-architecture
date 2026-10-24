@@ -28,7 +28,7 @@ describe("Projects scroll mode", () => {
       scrollWidth: { value: 3000 },
       clientWidth: { value: 1000 },
     });
-    vi.spyOn(section, "getBoundingClientRect").mockReturnValue({
+    const sectionBounds = vi.spyOn(section, "getBoundingClientRect").mockReturnValue({
       top: -450, height: window.innerHeight + 900,
     } as DOMRect);
     fireEvent.scroll(window);
@@ -38,7 +38,18 @@ describe("Projects scroll mode", () => {
     track.scrollLeft = 250;
     fireEvent.scroll(window);
     expect(track.scrollLeft).toBe(250);
+    sectionBounds.mockReturnValue({
+      top: 0, height: window.innerHeight + 900,
+    } as DOMRect);
     fireEvent.click(screen.getByRole("switch", { name: /Auto scroll/ }));
+    expect(track.scrollLeft).toBe(0);
+    expect(window.scrollTo).toHaveBeenLastCalledWith({
+      top: window.scrollY, behavior: "instant",
+    });
+    sectionBounds.mockReturnValue({
+      top: -450, height: window.innerHeight + 900,
+    } as DOMRect);
+    fireEvent.scroll(window);
     expect(track.scrollLeft).toBe(1000);
   });
 });
