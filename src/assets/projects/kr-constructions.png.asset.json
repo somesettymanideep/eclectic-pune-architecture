@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "f9348020-0809-4c22-ab1b-5ac2fdb94c41",
-  "project_id": "201fdb7e-59f2-4133-bb61-95b18219c475",
-  "url": "/__l5e/assets-v1/f9348020-0809-4c22-ab1b-5ac2fdb94c41/kr-constructions.png",
-  "r2_key": "a/v1/201fdb7e-59f2-4133-bb61-95b18219c475/f9348020-0809-4c22-ab1b-5ac2fdb94c41/kr-constructions.png",
-  "original_filename": "kr-constructions.png",
-  "size": 357392,
   "content_type": "image/webp",
-  "created_at": "2026-10-24T06:45:15Z"
+  "created_at": "2026-10-24T06:45:15Z",
+  "original_filename": "kr-constructions.png",
+  "project_id": "8696c439-b042-45e8-9d18-8c397e530b45",
+  "r2_key": "a/v1/8696c439-b042-45e8-9d18-8c397e530b45/f9348020-0809-4c22-ab1b-5ac2fdb94c41/kr-constructions.png",
+  "size": 357392,
+  "url": "/__l5e/assets-v1/f9348020-0809-4c22-ab1b-5ac2fdb94c41/kr-constructions.png",
+  "version": 1
 }

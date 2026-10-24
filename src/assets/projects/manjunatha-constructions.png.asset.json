@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "52e66d15-af11-4e5a-9862-1f0965bc10e4",
-  "project_id": "201fdb7e-59f2-4133-bb61-95b18219c475",
-  "url": "/__l5e/assets-v1/52e66d15-af11-4e5a-9862-1f0965bc10e4/manjunatha-constructions.png",
-  "r2_key": "a/v1/201fdb7e-59f2-4133-bb61-95b18219c475/52e66d15-af11-4e5a-9862-1f0965bc10e4/manjunatha-constructions.png",
-  "original_filename": "manjunatha-constructions.png",
-  "size": 2723021,
   "content_type": "image/png",
-  "created_at": "2026-10-24T07:07:43Z"
+  "created_at": "2026-10-24T07:07:43Z",
+  "original_filename": "manjunatha-constructions.png",
+  "project_id": "8696c439-b042-45e8-9d18-8c397e530b45",
+  "r2_key": "a/v1/8696c439-b042-45e8-9d18-8c397e530b45/52e66d15-af11-4e5a-9862-1f0965bc10e4/manjunatha-constructions.png",
+  "size": 2723021,
+  "url": "/__l5e/assets-v1/52e66d15-af11-4e5a-9862-1f0965bc10e4/manjunatha-constructions.png",
+  "version": 1
 }

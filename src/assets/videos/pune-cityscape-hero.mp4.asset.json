@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "6166f946-8590-44b9-b4a7-753aa6c64a1d",
-  "project_id": "201fdb7e-59f2-4133-bb61-95b18219c475",
-  "url": "/__l5e/assets-v1/6166f946-8590-44b9-b4a7-753aa6c64a1d/pune-cityscape-hero.mp4",
-  "r2_key": "a/v1/201fdb7e-59f2-4133-bb61-95b18219c475/6166f946-8590-44b9-b4a7-753aa6c64a1d/pune-cityscape-hero.mp4",
-  "original_filename": "pune-cityscape-hero.mp4",
-  "size": 6779233,
   "content_type": "video/mp4",
-  "created_at": "2026-10-23T11:14:00Z"
+  "created_at": "2026-10-23T11:14:00Z",
+  "original_filename": "pune-cityscape-hero.mp4",
+  "project_id": "8696c439-b042-45e8-9d18-8c397e530b45",
+  "r2_key": "a/v1/8696c439-b042-45e8-9d18-8c397e530b45/6166f946-8590-44b9-b4a7-753aa6c64a1d/pune-cityscape-hero.mp4",
+  "size": 6779233,
+  "url": "/__l5e/assets-v1/6166f946-8590-44b9-b4a7-753aa6c64a1d/pune-cityscape-hero.mp4",
+  "version": 1
 }

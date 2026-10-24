@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "61f8e482-0191-409d-afea-bbd3abe28caf",
-  "project_id": "201fdb7e-59f2-4133-bb61-95b18219c475",
-  "url": "/__l5e/assets-v1/61f8e482-0191-409d-afea-bbd3abe28caf/krishna-sindhura-hospital.png",
-  "r2_key": "a/v1/201fdb7e-59f2-4133-bb61-95b18219c475/61f8e482-0191-409d-afea-bbd3abe28caf/krishna-sindhura-hospital.png",
-  "original_filename": "krishna-sindhura-hospital.png",
-  "size": 2288505,
   "content_type": "image/png",
-  "created_at": "2026-10-24T06:13:40Z"
+  "created_at": "2026-10-24T06:13:40Z",
+  "original_filename": "krishna-sindhura-hospital.png",
+  "project_id": "8696c439-b042-45e8-9d18-8c397e530b45",
+  "r2_key": "a/v1/8696c439-b042-45e8-9d18-8c397e530b45/61f8e482-0191-409d-afea-bbd3abe28caf/krishna-sindhura-hospital.png",
+  "size": 2288505,
+  "url": "/__l5e/assets-v1/61f8e482-0191-409d-afea-bbd3abe28caf/krishna-sindhura-hospital.png",
+  "version": 1
 }

@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "7729420b-048d-4599-8591-90557289ee17",
-  "project_id": "201fdb7e-59f2-4133-bb61-95b18219c475",
-  "url": "/__l5e/assets-v1/7729420b-048d-4599-8591-90557289ee17/kishore-jain-kms-infra.png",
-  "r2_key": "a/v1/201fdb7e-59f2-4133-bb61-95b18219c475/7729420b-048d-4599-8591-90557289ee17/kishore-jain-kms-infra.png",
-  "original_filename": "kishore-jain-kms-infra.png",
-  "size": 2921983,
   "content_type": "image/png",
-  "created_at": "2026-10-24T06:13:40Z"
+  "created_at": "2026-10-24T06:13:40Z",
+  "original_filename": "kishore-jain-kms-infra.png",
+  "project_id": "8696c439-b042-45e8-9d18-8c397e530b45",
+  "r2_key": "a/v1/8696c439-b042-45e8-9d18-8c397e530b45/7729420b-048d-4599-8591-90557289ee17/kishore-jain-kms-infra.png",
+  "size": 2921983,
+  "url": "/__l5e/assets-v1/7729420b-048d-4599-8591-90557289ee17/kishore-jain-kms-infra.png",
+  "version": 1
 }
