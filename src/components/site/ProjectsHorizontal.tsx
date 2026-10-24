@@ -143,25 +143,24 @@ export function ProjectsHorizontal() {
               image={gangadharEstate.url}
               imgWidth={1402}
               imgHeight={768}
-              imageFit="contain"
-              className="h-[68svh] w-[90vw] lg:w-[74vw]"
+              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
+            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
             <ProjectCard
               name="Krishna Sindhura Hospital"
               image={krishnaSindhuraHospital.url}
               imgWidth={1482}
               imgHeight={768}
-              imageFit="contain"
-              className="h-[68svh] w-[90vw] lg:w-[74vw]"
+              className="w-full min-h-0 flex-1"
             />
             <ProjectCard
               name="Kishore Jain KMS Infra"
               image={kishoreJainKmsInfra.url}
               imgWidth={1360}
               imgHeight={768}
-              imageFit="contain"
-              className="h-[68svh] w-[90vw] lg:w-[74vw]"
+              className="w-full min-h-0 flex-1"
             />
+            </div>
             {/* Tall card — Amar Summit */}
             <ProjectCard
               name="Amar Summit"
