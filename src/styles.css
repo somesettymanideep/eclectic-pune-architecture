@@ -102,16 +102,3 @@
   letter-spacing: 0.06em;
   color: color-mix(in oklab, var(--color-foreground) 88%, transparent);
 }
-
-.projects-viewport {
-  scrollbar-width: thin;
-  scrollbar-color: var(--foreground) var(--border);
-}
-
-.projects-scrollbar-hidden {
-  scrollbar-width: none;
-}
-
-.projects-scrollbar-hidden::-webkit-scrollbar {
-  display: none;
-}
