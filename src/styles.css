@@ -86,6 +86,65 @@
   }
 }
 
+/* Projects section — Swiper carousel: no scrollbars, hover-only arrows */
+.projects-wrapper {
+  position: relative;
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+.projects-wrapper::-webkit-scrollbar,
+.projects-swiper::-webkit-scrollbar {
+  display: none;
+}
+
+.projects-swiper {
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+.projects-swiper .swiper-scrollbar {
+  display: none;
+}
+
+.projects-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease;
+}
+
+.projects-arrow-prev {
+  left: 2rem;
+}
+
+.projects-arrow-next {
+  right: 2rem;
+}
+
+.projects-section:hover .projects-arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.projects-section:hover .projects-arrow.projects-arrow-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 @utility pill-label {
   position: absolute;
   top: 0.9rem;
