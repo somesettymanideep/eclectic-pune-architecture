@@ -146,9 +146,9 @@ export function ProjectsHorizontal() {
               image={mediaUrl(gangadharEstate)}
               imgWidth={1402}
               imgHeight={768}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
+              className="h-[78svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
+            <div className="flex h-[78svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
             <ProjectCard
               name="Krishna Sindhura Hospital"
               image={mediaUrl(krishnaSindhuraHospital)}
@@ -170,10 +170,10 @@ export function ProjectsHorizontal() {
               image={mediaUrl(dudhupudiConstruction)}
               imgWidth={1391}
               imgHeight={1131}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
+              className="h-[78svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
             {/* Stacked pair — K R Constructions / Sarika Estate */}
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
+            <div className="flex h-[78svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
               <ProjectCard
                 name="K R Constructions"
                 image={mediaUrl(krConstructions)}
@@ -195,10 +195,10 @@ export function ProjectsHorizontal() {
               image={mediaUrl(manjunathaConstructions)}
               imgWidth={1337}
               imgHeight={1176}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
+              className="h-[78svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
             {/* Stacked pair — Evergreen Infra Nunna / Gravity Central */}
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
+            <div className="flex h-[78svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
               <ProjectCard
                 name="Evergreen Infra - Nunna"
                 image={mediaUrl(evergreenInfraNunna)}
@@ -218,7 +218,7 @@ export function ProjectsHorizontal() {
             <a
               href="#"
               onClick={(e) => e.preventDefault()}
-              className="group flex h-[68svh] w-[46vw] shrink-0 items-center justify-center rounded-lg border border-border bg-card sm:w-[30vw] lg:w-[20vw]"
+              className="group flex h-[78svh] w-[46vw] shrink-0 items-center justify-center rounded-lg border border-border bg-card sm:w-[30vw] lg:w-[20vw]"
             >
               <span className="flex flex-col items-center gap-3">
                 <span className="font-display text-lg font-light tracking-wide text-foreground md:text-xl">
