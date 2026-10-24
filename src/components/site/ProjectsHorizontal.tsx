@@ -14,6 +14,7 @@ import sarikaEstate from "@/assets/projects/sarika-estate.png.asset.json";
 import manjunathaConstructions from "@/assets/projects/manjunatha-constructions.png.asset.json";
 import evergreenInfraNunna from "@/assets/projects/evergreen-infra-nunna.png.asset.json";
 import gravityCentral from "@/assets/projects/gravity-central.png.asset.json";
+import { mediaUrl } from "@/lib/media-url";
 
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
@@ -142,7 +143,7 @@ export function ProjectsHorizontal() {
           >
             <ProjectCard
               name="Gangadhar Estate"
-              image={gangadharEstate.url}
+              image={mediaUrl(gangadharEstate)}
               imgWidth={1402}
               imgHeight={768}
               className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
@@ -150,14 +151,14 @@ export function ProjectsHorizontal() {
             <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
             <ProjectCard
               name="Krishna Sindhura Hospital"
-              image={krishnaSindhuraHospital.url}
+              image={mediaUrl(krishnaSindhuraHospital)}
               imgWidth={1482}
               imgHeight={768}
               className="w-full min-h-0 flex-1"
             />
             <ProjectCard
               name="Kishore Jain KMS Infra"
-              image={kishoreJainKmsInfra.url}
+              image={mediaUrl(kishoreJainKmsInfra)}
               imgWidth={1360}
               imgHeight={768}
               className="w-full min-h-0 flex-1"
@@ -166,7 +167,7 @@ export function ProjectsHorizontal() {
             {/* Tall card — Dudhupudi Construction */}
             <ProjectCard
               name="Dudhupudi Construction"
-              image={dudhupudiConstruction.url}
+              image={mediaUrl(dudhupudiConstruction)}
               imgWidth={1391}
               imgHeight={1131}
               className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
@@ -175,14 +176,14 @@ export function ProjectsHorizontal() {
             <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
               <ProjectCard
                 name="K R Constructions"
-                image={krConstructions.url}
+                image={mediaUrl(krConstructions)}
                 imgWidth={1672}
                 imgHeight={941}
                 className="w-full min-h-0 flex-1"
               />
               <ProjectCard
                 name="Sarika Estate"
-                image={sarikaEstate.url}
+                image={mediaUrl(sarikaEstate)}
                 imgWidth={1684}
                 imgHeight={934}
                 className="w-full min-h-0 flex-1"
@@ -191,7 +192,7 @@ export function ProjectsHorizontal() {
             {/* Tall card — Manjunatha Constructions */}
             <ProjectCard
               name="Manjunatha Constructions"
-              image={manjunathaConstructions.url}
+              image={mediaUrl(manjunathaConstructions)}
               imgWidth={1337}
               imgHeight={1176}
               className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
@@ -200,14 +201,14 @@ export function ProjectsHorizontal() {
             <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
               <ProjectCard
                 name="Evergreen Infra - Nunna"
-                image={evergreenInfraNunna.url}
+                image={mediaUrl(evergreenInfraNunna)}
                 imgWidth={1690}
                 imgHeight={931}
                 className="w-full min-h-0 flex-1"
               />
               <ProjectCard
                 name="Gravity Central"
-                image={gravityCentral.url}
+                image={mediaUrl(gravityCentral)}
                 imgWidth={1694}
                 imgHeight={929}
                 className="w-full min-h-0 flex-1"

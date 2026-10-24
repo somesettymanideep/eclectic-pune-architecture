@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import seaLogo from "@/assets/sea-logo-exact.png.asset.json";
+import { mediaUrl } from "@/lib/media-url";
 
 const MENU = [
   { label: "Expertise", active: true },
@@ -23,7 +24,7 @@ export function Navbar() {
           aria-label="SEA — Studio for Eclectic Architecture — home"
         >
           <img
-            src={seaLogo.url}
+            src={mediaUrl(seaLogo)}
             alt="SEA — Studio for Eclectic Architecture"
             className="h-12 w-auto md:h-16"
             width={500}
