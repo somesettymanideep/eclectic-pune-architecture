@@ -301,6 +301,66 @@ export function ProjectsHorizontal() {
           </motion.div>
         </div>
 
+        {/* Navigation arrows — fade in on hover when auto scroll is off */}
+        <div
+          className={`absolute left-4 top-1/2 z-20 -translate-y-1/2 transition-opacity duration-300 md:left-8 ${
+            autoScroll
+              ? "pointer-events-none opacity-0"
+              : "opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={() => nudge(1)}
+            aria-label="Previous projects"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-foreground text-background shadow-lg transition-transform hover:scale-105 active:scale-95 md:h-12 md:w-12"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+          </button>
+        </div>
+        <div
+          className={`absolute right-4 top-1/2 z-20 -translate-y-1/2 transition-opacity duration-300 md:right-8 ${
+            autoScroll
+              ? "pointer-events-none opacity-0"
+              : "opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={() => nudge(-1)}
+            aria-label="Next projects"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-foreground text-background shadow-lg transition-transform hover:scale-105 active:scale-95 md:h-12 md:w-12"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
         {/* Progress indicator — dot + line, as in reference */}
         <div className="flex items-center gap-4 px-5 pt-7 md:px-8">
           <div className="relative h-px w-56 max-w-[60vw] bg-border md:w-72">
