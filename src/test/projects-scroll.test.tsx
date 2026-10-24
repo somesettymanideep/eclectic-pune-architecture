@@ -15,6 +15,7 @@ describe("Projects scroll mode", () => {
   });
 
   it("drives horizontal position from page scroll only while enabled", () => {
+    const scrollTo = vi.spyOn(window, "scrollTo");
     vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) => {
       callback(0);
       return 1;
@@ -43,7 +44,7 @@ describe("Projects scroll mode", () => {
     } as DOMRect);
     fireEvent.click(screen.getByRole("switch", { name: /Auto scroll/ }));
     expect(track.scrollLeft).toBe(0);
-    expect(window.scrollTo).toHaveBeenLastCalledWith({
+    expect(scrollTo).toHaveBeenLastCalledWith({
       top: window.scrollY, behavior: "instant",
     });
     sectionBounds.mockReturnValue({
