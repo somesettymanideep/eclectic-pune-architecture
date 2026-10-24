@@ -119,31 +119,6 @@ export function ProjectsHorizontal() {
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
   };
 
-  return () => {
-      window.removeEventListener("resize", measure);
-      window.clearTimeout(t);
-    };
-  }, []);
-
-  // Pointer drag with momentum nudge
-  const dragging = useRef(false);
-  const startX = useRef(0);
-  const startDrag = useRef(0);
-
-  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    dragging.current = true;
-    startX.current = e.clientX;
-    startDrag.current = dragX.get();
-    e.currentTarget.setPointerCapture(e.pointerId);
-  };
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragging.current) return;
-    dragX.set(startDrag.current + (e.clientX - startX.current));
-  };
-  const endDrag = () => {
-    dragging.current = false;
-  };
-
   return (
     <section
       id="projects"
