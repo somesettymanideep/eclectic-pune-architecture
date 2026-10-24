@@ -24,3 +24,10 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+### Images and video when running locally
+
+The logo, project images, and hero video use hosted Lovable assets. Their pointer
+paths are resolved to the live site's absolute URL by `src/lib/media-url.ts`, so
+they work on localhost and other hosts without a Lovable asset proxy. An internet
+connection is required for those files; the spotlight images are bundled locally.
