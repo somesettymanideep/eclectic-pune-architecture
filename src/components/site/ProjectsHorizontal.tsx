@@ -12,6 +12,9 @@ import poonawallaTowers from "@/assets/projects/poonawalla-towers.jpg";
 import gangadharEstate from "@/assets/projects/gangadhar-estate.png.asset.json";
 import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital.png.asset.json";
 import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
+import dudhupudiConstruction from "@/assets/projects/dudhupudi-construction.png.asset.json";
+import krConstructions from "@/assets/projects/kr-constructions.png.asset.json";
+import sarikaEstate from "@/assets/projects/sarika-estate.png.asset.json";
 
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
@@ -121,7 +124,7 @@ export function ProjectsHorizontal() {
             Our Projects
           </h2>
           <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 07 )
+            ( 10 )
           </span>
         </div>
 
@@ -160,6 +163,31 @@ export function ProjectsHorizontal() {
               imgHeight={768}
               className="w-full min-h-0 flex-1"
             />
+            </div>
+            {/* Tall card — Dudhupudi Construction */}
+            <ProjectCard
+              name="Dudhupudi Construction"
+              image={dudhupudiConstruction.url}
+              imgWidth={1391}
+              imgHeight={1131}
+              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
+            />
+            {/* Stacked pair — K R Constructions / Sarika Estate */}
+            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
+              <ProjectCard
+                name="K R Constructions"
+                image={krConstructions.url}
+                imgWidth={1672}
+                imgHeight={941}
+                className="w-full min-h-0 flex-1"
+              />
+              <ProjectCard
+                name="Sarika Estate"
+                image={sarikaEstate.url}
+                imgWidth={1684}
+                imgHeight={934}
+                className="w-full min-h-0 flex-1"
+              />
             </div>
             {/* Tall card — Amar Summit */}
             <ProjectCard
