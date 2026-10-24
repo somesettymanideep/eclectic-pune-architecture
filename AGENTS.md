@@ -10,4 +10,3 @@
 <!-- LOVABLE:END -->
 
 - Resolve hosted asset pointers through `src/lib/media-url.ts` in UI code; the absolute hosted origin makes the same media available in local clones without Lovable's local asset proxy. Keep bundled image imports unchanged.
-- Keep the projects gallery on native horizontal overflow with column-based scroll snapping, preserving stacked cards; native scrolling supports touch, keyboard, wheel and drag without tying gallery position to page scroll.
