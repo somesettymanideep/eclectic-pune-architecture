@@ -9,6 +9,9 @@ import amarSummit from "@/assets/projects/amar-summit.jpg";
 import ap4Campus from "@/assets/projects/ap4-campus.jpg";
 import abzLed from "@/assets/projects/abz-led.jpg";
 import poonawallaTowers from "@/assets/projects/poonawalla-towers.jpg";
+import gangadharEstate from "@/assets/projects/gangadhar-estate.png.asset.json";
+import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital.png.asset.json";
+import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
 
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
@@ -19,12 +22,14 @@ function ProjectCard({
   className = "",
   imgWidth,
   imgHeight,
+  imageFit = "cover",
 }: {
   name: string;
   image: string;
   className?: string;
   imgWidth: number;
   imgHeight: number;
+  imageFit?: "cover" | "contain";
 }) {
   return (
     <div
@@ -36,7 +41,8 @@ function ProjectCard({
         loading="lazy"
         width={imgWidth}
         height={imgHeight}
-        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        draggable={false}
+        className={`h-full w-full ${imageFit === "contain" ? "object-contain" : "object-cover"} transition-transform duration-700 ease-out group-hover:scale-105`}
       />
       <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/25" />
       <span className="pill-label">{name}</span>
@@ -115,7 +121,7 @@ export function ProjectsHorizontal() {
             Our Projects
           </h2>
           <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 04 )
+            ( 07 )
           </span>
         </div>
 
@@ -132,6 +138,30 @@ export function ProjectsHorizontal() {
             style={{ x }}
             className="flex w-max items-stretch gap-3 pl-5 pr-8 md:pl-8"
           >
+            <ProjectCard
+              name="Gangadhar Estate"
+              image={gangadharEstate.url}
+              imgWidth={1402}
+              imgHeight={768}
+              imageFit="contain"
+              className="h-[68svh] w-[90vw] lg:w-[74vw]"
+            />
+            <ProjectCard
+              name="Krishna Sindhura Hospital"
+              image={krishnaSindhuraHospital.url}
+              imgWidth={1482}
+              imgHeight={768}
+              imageFit="contain"
+              className="h-[68svh] w-[90vw] lg:w-[74vw]"
+            />
+            <ProjectCard
+              name="Kishore Jain KMS Infra"
+              image={kishoreJainKmsInfra.url}
+              imgWidth={1360}
+              imgHeight={768}
+              imageFit="contain"
+              className="h-[68svh] w-[90vw] lg:w-[74vw]"
+            />
             {/* Tall card — Amar Summit */}
             <ProjectCard
               name="Amar Summit"
