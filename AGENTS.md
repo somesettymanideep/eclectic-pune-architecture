@@ -10,4 +10,3 @@
 <!-- LOVABLE:END -->
 
 - Resolve hosted asset pointers through `src/lib/media-url.ts` in UI code; the absolute hosted origin makes the same media available in local clones without Lovable's local asset proxy. Keep bundled image imports unchanged.
-- Keep project scroll modes within the existing gallery; align the viewport to the section when changing its pinned height so switching modes cannot skip the gallery.
