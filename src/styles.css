@@ -39,6 +39,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-bronze: var(--bronze);
 }
 
 :root {
@@ -62,6 +63,7 @@
   --border: oklch(0.22 0 0);
   --input: oklch(0.22 0 0);
   --ring: oklch(0.4 0 0);
+  --bronze: oklch(0.66 0.055 55);
 }
 
 @layer base {
