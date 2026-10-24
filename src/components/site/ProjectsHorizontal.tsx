@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  animate,
   motion,
+  useAnimationFrame,
   useMotionValue,
   useScroll,
   useTransform,
@@ -97,6 +99,30 @@ export function ProjectsHorizontal() {
   const startX = useRef(0);
   const startDrag = useRef(0);
 
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [hovered, setHovered] = useState(false);
+
+  // Bounds for dragX so the combined offset stays within the track
+  const dragBounds = () => {
+    const b = baseX.get();
+    return { min: -shiftRef.current - b, max: -b };
+  };
+
+  useAnimationFrame((_, delta) => {
+    if (!autoScroll || dragging.current || shiftRef.current <= 0) return;
+    const { min, max } = dragBounds();
+    let next = dragX.get() - delta * 0.06;
+    if (next < min) next = max; // loop back to start
+    dragX.set(clamp(next, min, max));
+  });
+
+  const nudge = (dir: 1 | -1) => {
+    const { min, max } = dragBounds();
+    const step = window.innerWidth * 0.45;
+    const target = clamp(dragX.get() - dir * step, min, max);
+    animate(dragX, target, { duration: 0.7, ease: [0.22, 1, 0.36, 1] });
+  };
+
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     dragging.current = true;
     startX.current = e.clientX;
@@ -111,24 +137,57 @@ export function ProjectsHorizontal() {
     dragging.current = false;
   };
 
+  const showArrows = !autoScroll && hovered;
+
   return (
     <section
       id="projects"
       ref={sectionRef}
       className="relative h-[190svh] bg-background"
     >
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div
+        className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
         {/* Section header */}
         <div className="flex items-end justify-between px-5 pb-5 md:px-8">
           <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
             Our Projects
           </h2>
-          <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 09 )
-          </span>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setAutoScroll((v) => !v)}
+              aria-pressed={autoScroll}
+              className="flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-[10px] tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${autoScroll ? "bg-foreground" : "bg-muted-foreground/40"}`}
+              />
+              AUTOSCROLL {autoScroll ? "ON" : "OFF"}
+            </button>
+            <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
+              ( 09 )
+            </span>
+          </div>
         </div>
 
         {/* Horizontal track — driven by vertical scroll, also draggable */}
+        <div className="relative">
+        {(["prev", "next"] as const).map((d) => (
+          <button
+            key={d}
+            type="button"
+            aria-label={d === "prev" ? "Previous projects" : "Next projects"}
+            onClick={() => nudge(d === "prev" ? -1 : 1)}
+            className={`absolute top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-foreground text-background shadow-lg transition-opacity duration-300 ${d === "prev" ? "left-4 md:left-6" : "right-4 md:right-6"} ${showArrows ? "opacity-100" : "pointer-events-none opacity-0"}`}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+              {d === "prev" ? <path d="M15 18l-6-6 6-6" /> : <path d="M9 18l6-6-6-6" />}
+            </svg>
+          </button>
+        ))}
         <div
           className="cursor-grab touch-pan-y select-none active:cursor-grabbing"
           onPointerDown={onPointerDown}
@@ -230,6 +289,7 @@ export function ProjectsHorizontal() {
               </span>
             </a>
           </motion.div>
+        </div>
         </div>
 
         {/* Progress indicator — dot + line, as in reference */}
