@@ -1,5 +1,7 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import gangadharEstate from "@/assets/projects/gangadhar-estate.png.asset.json";
 import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital.png.asset.json";
 import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
@@ -46,7 +48,36 @@ function ProjectCard({
 }
 
 export function ProjectsHorizontal() {
+  const [autoScroll, setAutoScroll] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!autoScroll) return;
+    let frame = 0;
+    const syncScroll = () => {
+      const section = sectionRef.current;
+      const track = trackRef.current;
+      if (!section || !track || dragging.current) return;
+      const rect = section.getBoundingClientRect();
+      const travel = rect.height - window.innerHeight;
+      if (travel <= 0) return;
+      const progress = Math.max(0, Math.min(1, -rect.top / travel));
+      track.scrollLeft = progress * Math.max(0, track.scrollWidth - track.clientWidth);
+    };
+    const scheduleSync = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(syncScroll);
+    };
+    window.addEventListener("scroll", scheduleSync, { passive: true });
+    window.addEventListener("resize", scheduleSync);
+    scheduleSync();
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleSync);
+      window.removeEventListener("resize", scheduleSync);
+    };
+  }, [autoScroll]);
 
   const scrollBy = (dir: 1 | -1) => {
     const track = trackRef.current;
@@ -78,22 +109,31 @@ export function ProjectsHorizontal() {
   };
 
   return (
-    <section id="projects" className="group relative bg-background py-10">
+    <section ref={sectionRef} id="projects" className={`group relative bg-background ${autoScroll ? "h-[190svh]" : ""}`}>
+      <div className={autoScroll ? "sticky top-0 flex h-screen flex-col justify-center py-10" : "py-10"}>
       {/* Section header */}
       <div className="flex items-end justify-between px-5 pb-5 md:px-8">
         <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
           Our Projects
         </h2>
-        <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
+        <div className="flex items-center gap-4">
+          <label htmlFor="projects-auto-scroll" className="flex cursor-pointer items-center gap-2 text-xs text-muted-foreground">
+            Auto scroll
+            <Switch id="projects-auto-scroll" checked={autoScroll} onCheckedChange={setAutoScroll} />
+            <span className="w-5 text-foreground">{autoScroll ? "On" : "Off"}</span>
+          </label>
+        <span className="hidden text-[11px] tracking-[0.2em] text-muted-foreground sm:inline">
           ( 09 )
         </span>
+        </div>
       </div>
 
       <div className="relative">
         {/* Horizontal track — drag or use arrows; scrollbar hidden */}
         <div
           ref={trackRef}
-          className="cursor-grab touch-pan-y select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          data-lenis-prevent
+          className={`cursor-grab touch-pan-y select-none overflow-x-auto active:cursor-grabbing ${autoScroll ? "projects-scrollbar" : "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden"}`}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
@@ -188,22 +228,27 @@ export function ProjectsHorizontal() {
         </div>
 
         {/* Arrows — visible only while hovering the projects section */}
-        <button
+        <Button
           type="button"
+          size="icon"
           aria-label="Previous projects"
+          title="Previous projects"
           onClick={() => scrollBy(-1)}
-          className="absolute left-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100 hover:bg-white/90"
+          className="absolute left-4 top-1/2 z-20 h-12 w-12 -translate-y-1/2 rounded-full bg-primary text-primary-foreground opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100 focus-visible:opacity-100 hover:bg-primary/90 motion-reduce:transition-none"
         >
           <ChevronLeft className="h-5 w-5" />
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          size="icon"
           aria-label="Next projects"
+          title="Next projects"
           onClick={() => scrollBy(1)}
-          className="absolute right-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100 hover:bg-white/90"
+          className="absolute right-4 top-1/2 z-20 h-12 w-12 -translate-y-1/2 rounded-full bg-primary text-primary-foreground opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100 focus-visible:opacity-100 hover:bg-primary/90 motion-reduce:transition-none"
         >
           <ChevronRight className="h-5 w-5" />
-        </button>
+        </Button>
+      </div>
       </div>
     </section>
   );
