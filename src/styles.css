@@ -86,6 +86,24 @@
   }
 }
 
+.projects-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground) var(--card);
+}
+
+.projects-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.projects-scrollbar::-webkit-scrollbar-track {
+  background: var(--card);
+}
+
+.projects-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: var(--radius);
+}
+
 @utility pill-label {
   position: absolute;
   top: 0.9rem;
