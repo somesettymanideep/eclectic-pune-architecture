@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import heroVideo from "@/assets/videos/pune-cityscape-hero.mp4.asset.json";
+import heroWebm from "@/assets/videos/pune-cityscape-hero.webm.asset.json";
 import { mediaUrl } from "@/lib/media-url";
 
 export function Hero() {
@@ -23,14 +24,16 @@ export function Hero() {
         className="absolute inset-0"
       >
         <video
-          src={mediaUrl(heroVideo)}
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
           className="h-full w-full object-cover"
-        />
+        >
+          <source src={mediaUrl(heroWebm)} type="video/webm" />
+          <source src={mediaUrl(heroVideo)} type="video/mp4" />
+        </video>
       </motion.div>
 
       <motion.div
