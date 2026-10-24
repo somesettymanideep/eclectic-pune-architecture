@@ -59,7 +59,7 @@ export function Services() {
                 delay: i * 0.08,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="group relative aspect-[2/3] cursor-pointer overflow-hidden rounded-lg border border-border/60 bg-card"
+              className="group relative aspect-[4/5] cursor-pointer overflow-hidden rounded-lg border border-border/60 bg-card sm:aspect-[3/4] lg:aspect-[2/3]"
             >
               <img
                 src={service.image}
