@@ -118,6 +118,17 @@ export function ProjectsHorizontal() {
             modules={[Navigation]}
             onSwiper={(s) => {
               swiperRef.current = s;
+              setAtStart(s.isBeginning);
+              setAtEnd(s.isEnd);
+            }}
+            onSlideChange={(s) => {
+              setAtStart(s.isBeginning);
+              setAtEnd(s.isEnd);
+            }}
+            onReachEnd={() => setAtEnd(true)}
+            onFromEdge={(s) => {
+              setAtStart(s.isBeginning);
+              setAtEnd(s.isEnd);
             }}
             speed={600}
             autoplay={false}
@@ -141,12 +152,12 @@ export function ProjectsHorizontal() {
           <ArrowButton
             direction="prev"
             onClick={() => swiperRef.current?.slidePrev()}
-            disabled={false}
+            disabled={atStart}
           />
           <ArrowButton
             direction="next"
             onClick={() => swiperRef.current?.slideNext()}
-            disabled={false}
+            disabled={atEnd}
           />
         </div>
       </div>
