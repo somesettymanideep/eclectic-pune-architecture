@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -96,6 +96,8 @@ function ArrowButton({
 
 export function ProjectsHorizontal() {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
 
   return (
     <section id="projects" className="projects-section relative bg-background py-6">
