@@ -5,10 +5,6 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import amarSummit from "@/assets/projects/amar-summit.jpg";
-import ap4Campus from "@/assets/projects/ap4-campus.jpg";
-import abzLed from "@/assets/projects/abz-led.jpg";
-import poonawallaTowers from "@/assets/projects/poonawalla-towers.jpg";
 import gangadharEstate from "@/assets/projects/gangadhar-estate.png.asset.json";
 import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital.png.asset.json";
 import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
@@ -124,7 +120,7 @@ export function ProjectsHorizontal() {
             Our Projects
           </h2>
           <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 10 )
+            ( 06 )
           </span>
         </div>
 
@@ -189,42 +185,6 @@ export function ProjectsHorizontal() {
                 className="w-full min-h-0 flex-1"
               />
             </div>
-            {/* Tall card — Amar Summit */}
-            <ProjectCard
-              name="Amar Summit"
-              image={amarSummit}
-              imgWidth={912}
-              imgHeight={1600}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
-            />
-
-            {/* Middle stacked pair — AP4 / ABZ */}
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
-              <ProjectCard
-                name="AP4"
-                image={ap4Campus}
-                imgWidth={1600}
-                imgHeight={900}
-                className="w-full min-h-0 flex-1"
-              />
-              <ProjectCard
-                name="ABZ"
-                image={abzLed}
-                imgWidth={1600}
-                imgHeight={900}
-                className="w-full min-h-0 flex-1"
-              />
-            </div>
-
-            {/* Tall card — Poonawalla Towers */}
-            <ProjectCard
-              name="Poonawalla Towers"
-              image={poonawallaTowers}
-              imgWidth={912}
-              imgHeight={1600}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
-            />
-
             {/* End tile */}
             <a
               href="#"
