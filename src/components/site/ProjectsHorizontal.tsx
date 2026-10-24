@@ -290,6 +290,7 @@ export function ProjectsHorizontal() {
             </a>
           </motion.div>
         </div>
+        </div>
 
         {/* Progress indicator — dot + line, as in reference */}
         <div className="flex items-center gap-4 px-5 pt-7 md:px-8">
