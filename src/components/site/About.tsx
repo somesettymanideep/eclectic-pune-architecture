@@ -35,7 +35,7 @@ export function About() {
                 delay: i * 0.12,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="max-w-xl text-[13px] leading-relaxed text-muted-foreground"
+              className="max-w-xl text-[13px] leading-relaxed text-muted-foreground lg:text-[19px] lg:leading-relaxed lg:text-foreground"
             >
               {text}
             </motion.p>
