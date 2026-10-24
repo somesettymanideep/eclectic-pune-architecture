@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import seaLogo from "@/assets/sea-logo.png.asset.json";
+import seaLogo from "@/assets/sea-logo-exact.png.asset.json";
 
 const MENU = [
   { label: "Expertise", active: true },
@@ -26,8 +26,8 @@ export function Navbar() {
             src={seaLogo.url}
             alt="SEA — Studio for Eclectic Architecture"
             className="h-12 w-auto md:h-16"
-            width={944}
-            height={560}
+            width={500}
+            height={211}
           />
         </Link>
 
