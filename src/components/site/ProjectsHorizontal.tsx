@@ -106,6 +106,40 @@ export function ProjectsHorizontal() {
     };
   }, []);
 
+  // Auto scroll toggle — off restores the original first-project layout on re-enable
+  const toggleAutoScroll = () => {
+    if (autoScrollRef.current) {
+      dragX.set(x.get());
+      setAutoScroll(false);
+      return;
+    }
+    dragX.set(0);
+    const el = sectionRef.current;
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < -40) {
+        window.scrollTo({
+          top: rect.top + window.scrollY,
+          behavior: "instant" as ScrollBehavior,
+        });
+      }
+    }
+    setAutoScroll(true);
+  };
+
+  // Arrow navigation — nudges the track when auto scroll is off
+  const nudge = (dir: 1 | -1) => {
+    animate(
+      dragX,
+      clamp(
+        dragX.get() + dir * window.innerWidth * 0.6,
+        -shiftRef.current,
+        0,
+      ),
+      { duration: 0.6, ease: [0.32, 0.72, 0, 1] },
+    );
+  };
+
   // Pointer drag with momentum nudge
   const dragging = useRef(false);
   const startX = useRef(0);
@@ -129,17 +163,38 @@ export function ProjectsHorizontal() {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative h-[190svh] bg-background"
+      className={`relative bg-background ${
+        autoScroll ? "h-[190svh]" : "h-screen"
+      }`}
     >
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div
+        className={`group flex h-screen flex-col justify-center overflow-hidden ${
+          autoScroll ? "sticky top-0" : ""
+        }`}
+      >
         {/* Section header */}
         <div className="flex items-end justify-between px-5 pb-5 md:px-8">
           <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
             Our Projects
           </h2>
-          <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 09 )
-          </span>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={toggleAutoScroll}
+              aria-pressed={autoScroll}
+              className="flex items-center gap-2 rounded-full border border-border px-3.5 py-1.5 text-[10px] tracking-[0.2em] text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+            >
+              <span
+                className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                  autoScroll ? "bg-foreground" : "bg-border"
+                }`}
+              />
+              AUTO SCROLL {autoScroll ? "ON" : "OFF"}
+            </button>
+            <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
+              ( 09 )
+            </span>
+          </div>
         </div>
 
         {/* Horizontal track — driven by vertical scroll, also draggable */}
