@@ -5,10 +5,6 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import amarSummit from "@/assets/projects/amar-summit.jpg";
-import ap4Campus from "@/assets/projects/ap4-campus.jpg";
-import abzLed from "@/assets/projects/abz-led.jpg";
-import poonawallaTowers from "@/assets/projects/poonawalla-towers.jpg";
 import gangadharEstate from "@/assets/projects/gangadhar-estate.png.asset.json";
 import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital.png.asset.json";
 import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
@@ -124,7 +120,7 @@ export function ProjectsHorizontal() {
             Our Projects
           </h2>
           <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 10 )
+            ( 06 )
           </span>
         </div>
 
