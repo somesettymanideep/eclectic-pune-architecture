@@ -102,12 +102,3 @@
   letter-spacing: 0.06em;
   color: color-mix(in oklab, var(--color-foreground) 88%, transparent);
 }
-
-/*
- * Project card height — as tall as possible while the pinned screen still
- * clears the fixed logo bar, the section header and the progress line.
- */
-@utility project-t {
-  height: clamp(240px, 76svh, calc(100svh - 10.5rem));
-}
-
