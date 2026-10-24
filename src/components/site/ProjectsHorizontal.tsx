@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  animate,
   motion,
   useMotionValue,
   useScroll,
@@ -61,6 +62,15 @@ export function ProjectsHorizontal() {
   const shiftRef = useRef(0);
   shiftRef.current = shift;
 
+  // Auto scroll: on = pinned, vertical-scroll-driven track; off = free drag + arrows
+  const [autoScroll, setAutoScroll] = useState(true);
+  const autoScrollRef = useRef(true);
+  autoScrollRef.current = autoScroll;
+  const autoMode = useMotionValue(1);
+  useEffect(() => {
+    autoMode.set(autoScroll ? 1 : 0);
+  }, [autoScroll, autoMode]);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
@@ -69,13 +79,17 @@ export function ProjectsHorizontal() {
   const dragX = useMotionValue(0);
   const baseX = useTransform(scrollYProgress, [0, 1], [0, -shift]);
   const x = useTransform(() =>
-    clamp(baseX.get() + dragX.get(), -shiftRef.current, 0),
+    clamp(
+      baseX.get() * autoMode.get() + dragX.get(),
+      -shiftRef.current,
+      0,
+    ),
   );
 
-  const dotLeft = useTransform(
-    scrollYProgress,
-    (v) => `${clamp(v, 0, 1) * 100}%`,
-  );
+  const dotLeft = useTransform(x, (v) => {
+    const max = Math.max(1, shiftRef.current);
+    return `${clamp(-v / max, 0, 1) * 100}%`;
+  });
 
   useEffect(() => {
     const measure = () => {
