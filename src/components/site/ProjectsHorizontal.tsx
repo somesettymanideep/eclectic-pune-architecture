@@ -2,9 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionValue,
+  useMotionValueEvent,
   useScroll,
   useTransform,
 } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import gangadharEstate from "@/assets/projects/gangadhar-estate.png.asset.json";
 import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital.png.asset.json";
 import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
@@ -56,6 +60,9 @@ function ProjectCard({
 export function ProjectsHorizontal() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [hovered, setHovered] = useState(false);
 
   const [shift, setShift] = useState(0);
   const shiftRef = useRef(0);
@@ -66,14 +73,14 @@ export function ProjectsHorizontal() {
     offset: ["start start", "end end"],
   });
 
-  const dragX = useMotionValue(0);
-  const baseX = useTransform(scrollYProgress, [0, 1], [0, -shift]);
-  const x = useTransform(() =>
-    clamp(baseX.get() + dragX.get(), -shiftRef.current, 0),
-  );
+  const horizontalProgress = useMotionValue(0);
+  useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    if (!autoScroll || !viewportRef.current) return;
+    viewportRef.current.scrollLeft = clamp(progress, 0, 1) * shiftRef.current;
+  });
 
   const dotLeft = useTransform(
-    scrollYProgress,
+    horizontalProgress,
     (v) => `${clamp(v, 0, 1) * 100}%`,
   );
 
@@ -81,7 +88,7 @@ export function ProjectsHorizontal() {
     const measure = () => {
       const track = trackRef.current;
       if (!track) return;
-      setShift(Math.max(0, track.scrollWidth - window.innerWidth + 24));
+      setShift(Math.max(0, track.scrollWidth - (viewportRef.current?.clientWidth ?? window.innerWidth)));
     };
     measure();
     const t = window.setTimeout(measure, 600);
@@ -92,20 +99,39 @@ export function ProjectsHorizontal() {
     };
   }, []);
 
-  // Pointer drag with momentum nudge
+  const changeAutoScroll = (enabled: boolean) => {
+    setAutoScroll(enabled);
+    if (!enabled) return;
+    const section = sectionRef.current;
+    if (section) {
+      window.scrollTo({ top: window.scrollY + section.getBoundingClientRect().top, behavior: "instant" });
+    }
+    if (viewportRef.current) viewportRef.current.scrollLeft = 0;
+    horizontalProgress.set(0);
+  };
+
+  const navigate = (direction: number) => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    viewport.scrollBy({ left: direction * viewport.clientWidth * 0.8, behavior: reducedMotion ? "instant" : "smooth" });
+  };
+
+  // Native horizontal scrolling also supports pointer dragging.
   const dragging = useRef(false);
   const startX = useRef(0);
   const startDrag = useRef(0);
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch" || e.button !== 0) return;
     dragging.current = true;
     startX.current = e.clientX;
-    startDrag.current = dragX.get();
+    startDrag.current = e.currentTarget.scrollLeft;
     e.currentTarget.setPointerCapture(e.pointerId);
   };
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!dragging.current) return;
-    dragX.set(startDrag.current + (e.clientX - startX.current));
+    e.currentTarget.scrollLeft = startDrag.current - (e.clientX - startX.current);
   };
   const endDrag = () => {
     dragging.current = false;
@@ -115,30 +141,42 @@ export function ProjectsHorizontal() {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative h-[190svh] bg-background"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`relative bg-background ${autoScroll ? "h-[190svh]" : "h-screen"}`}
     >
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div className={`${autoScroll ? "sticky top-0" : "relative"} flex h-screen flex-col justify-center overflow-hidden`}>
         {/* Section header */}
         <div className="flex items-end justify-between px-5 pb-5 md:px-8">
           <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
             Our Projects
           </h2>
-          <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 09 )
-          </span>
+          <div className="flex items-center gap-4">
+            <label htmlFor="projects-autoscroll" className="flex cursor-pointer items-center gap-2 text-xs text-muted-foreground">
+              Auto scroll
+              <Switch id="projects-autoscroll" checked={autoScroll} onCheckedChange={changeAutoScroll} aria-label="Auto scroll" />
+              <span className="w-5 text-foreground">{autoScroll ? "On" : "Off"}</span>
+            </label>
+            <span className="text-[11px] tracking-[0.2em] text-muted-foreground">( 09 )</span>
+          </div>
         </div>
 
         {/* Horizontal track — driven by vertical scroll, also draggable */}
+        <div className="relative">
         <div
-          className="cursor-grab touch-pan-y select-none active:cursor-grabbing"
+          ref={viewportRef}
+          role="region"
+          aria-label="Project gallery"
+          data-lenis-prevent
+          onScroll={(e) => horizontalProgress.set(shift > 0 ? e.currentTarget.scrollLeft / shift : 0)}
+          className={`projects-viewport cursor-grab touch-pan-x select-none overflow-x-auto active:cursor-grabbing ${autoScroll ? "" : "projects-scrollbar-hidden"}`}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
         >
-          <motion.div
+          <div
             ref={trackRef}
-            style={{ x }}
             className="flex w-max items-stretch gap-3 pl-5 pr-8 md:pl-8"
           >
             <ProjectCard
@@ -229,7 +267,15 @@ export function ProjectsHorizontal() {
                 </span>
               </span>
             </a>
-          </motion.div>
+          </div>
+        </div>
+        {!autoScroll && <div
+          aria-hidden={!hovered}
+          className={`pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-between px-4 transition-opacity duration-300 motion-reduce:transition-none md:px-6 ${hovered ? "opacity-100" : "opacity-0"}`}
+        >
+          <Button size="icon" aria-label="Previous projects" title="Previous projects" tabIndex={hovered ? 0 : -1} onClick={() => navigate(-1)} className={`size-11 rounded-full bg-primary text-primary-foreground shadow-none hover:bg-primary/90 ${hovered ? "pointer-events-auto" : "pointer-events-none"}`}><ArrowLeft /></Button>
+          <Button size="icon" aria-label="Next projects" title="Next projects" tabIndex={hovered ? 0 : -1} onClick={() => navigate(1)} className={`size-11 rounded-full bg-primary text-primary-foreground shadow-none hover:bg-primary/90 ${hovered ? "pointer-events-auto" : "pointer-events-none"}`}><ArrowRight /></Button>
+        </div>}
         </div>
 
         {/* Progress indicator — dot + line, as in reference */}
