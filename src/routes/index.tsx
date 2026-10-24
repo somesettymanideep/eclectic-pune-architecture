@@ -49,7 +49,7 @@ function Index() {
         <Hero />
         <ProjectsHorizontal />
         <About />
-        <Spotlight />
+        <Services />
       </main>
       <Footer />
     </div>
