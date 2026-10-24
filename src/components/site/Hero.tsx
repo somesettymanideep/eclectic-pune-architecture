@@ -15,8 +15,6 @@ export function Hero() {
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.35, 0.8]);
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, -70]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
     <section ref={ref} className="relative h-[100svh] overflow-hidden">
@@ -43,16 +41,6 @@ export function Hero() {
         className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/70"
       />
 
-      <motion.div
-        style={{ y: titleY, opacity: titleOpacity }}
-        className="relative z-10 flex h-full items-center justify-center px-6"
-      >
-        <h1 className="text-center font-display text-4xl font-normal uppercase leading-tight tracking-[0.08em] text-foreground drop-shadow-lg sm:text-5xl md:text-6xl lg:text-[4.25rem]">
-          Changing the
-          <br />
-          Cityscape of Pune
-        </h1>
-      </motion.div>
 
       {/* Scroll cue */}
       <motion.div
