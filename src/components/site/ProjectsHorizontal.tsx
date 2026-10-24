@@ -12,6 +12,9 @@ import poonawallaTowers from "@/assets/projects/poonawalla-towers.jpg";
 import gangadharEstate from "@/assets/projects/gangadhar-estate.png.asset.json";
 import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital.png.asset.json";
 import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
+import dudhupudiConstruction from "@/assets/projects/dudhupudi-construction.png.asset.json";
+import krConstructions from "@/assets/projects/kr-constructions.png.asset.json";
+import sarikaEstate from "@/assets/projects/sarika-estate.png.asset.json";
 
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
@@ -121,7 +124,7 @@ export function ProjectsHorizontal() {
             Our Projects
           </h2>
           <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-            ( 07 )
+            ( 10 )
           </span>
         </div>
 
