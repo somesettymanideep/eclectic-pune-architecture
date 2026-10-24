@@ -117,9 +117,9 @@ export function ProjectsHorizontal() {
       ref={sectionRef}
       className="relative h-[190svh] bg-background"
     >
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden pt-20">
         {/* Section header */}
-        <div className="flex items-end justify-between px-5 pb-5 md:px-8">
+        <div className="flex items-end justify-between px-5 pb-3 md:px-8">
           <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
             Our Projects
           </h2>
@@ -146,9 +146,9 @@ export function ProjectsHorizontal() {
               image={mediaUrl(gangadharEstate)}
               imgWidth={1402}
               imgHeight={768}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
+              className="project-t w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
+            <div className="flex project-t w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
             <ProjectCard
               name="Krishna Sindhura Hospital"
               image={mediaUrl(krishnaSindhuraHospital)}
@@ -170,10 +170,10 @@ export function ProjectsHorizontal() {
               image={mediaUrl(dudhupudiConstruction)}
               imgWidth={1391}
               imgHeight={1131}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
+              className="project-t w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
             {/* Stacked pair — K R Constructions / Sarika Estate */}
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
+            <div className="flex project-t w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
               <ProjectCard
                 name="K R Constructions"
                 image={mediaUrl(krConstructions)}
@@ -195,10 +195,10 @@ export function ProjectsHorizontal() {
               image={mediaUrl(manjunathaConstructions)}
               imgWidth={1337}
               imgHeight={1176}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
+              className="project-t w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
             {/* Stacked pair — Evergreen Infra Nunna / Gravity Central */}
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
+            <div className="flex project-t w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
               <ProjectCard
                 name="Evergreen Infra - Nunna"
                 image={mediaUrl(evergreenInfraNunna)}
@@ -218,7 +218,7 @@ export function ProjectsHorizontal() {
             <a
               href="#"
               onClick={(e) => e.preventDefault()}
-              className="group flex h-[68svh] w-[46vw] shrink-0 items-center justify-center rounded-lg border border-border bg-card sm:w-[30vw] lg:w-[20vw]"
+              className="group flex project-t w-[46vw] shrink-0 items-center justify-center rounded-lg border border-border bg-card sm:w-[30vw] lg:w-[20vw]"
             >
               <span className="flex flex-col items-center gap-3">
                 <span className="font-display text-lg font-light tracking-wide text-foreground md:text-xl">
@@ -233,7 +233,7 @@ export function ProjectsHorizontal() {
         </div>
 
         {/* Progress indicator — dot + line, as in reference */}
-        <div className="flex items-center gap-4 px-5 pt-7 md:px-8">
+        <div className="flex items-center gap-4 px-5 pt-5 md:px-8">
           <div className="relative h-px w-56 max-w-[60vw] bg-border md:w-72">
             <motion.span
               style={{ left: dotLeft }}
