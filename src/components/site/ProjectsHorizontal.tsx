@@ -51,8 +51,24 @@ export function ProjectsHorizontal() {
   const [autoScroll, setAutoScroll] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const previousMode = useRef(autoScroll);
 
   useEffect(() => {
+    const modeChanged = previousMode.current !== autoScroll;
+    previousMode.current = autoScroll;
+    if (modeChanged) {
+      const section = sectionRef.current;
+      const track = trackRef.current;
+      if (section) {
+        // Keep the gallery in view when its pinned height changes. Enabling
+        // starts at the original first-project layout, not halfway through it.
+        window.scrollTo({
+          top: window.scrollY + section.getBoundingClientRect().top,
+          behavior: "instant",
+        });
+      }
+      if (autoScroll && track) track.scrollLeft = 0;
+    }
     if (!autoScroll) return;
     let frame = 0;
     const syncScroll = () => {
