@@ -81,11 +81,11 @@ export function ProjectsHorizontal() {
       const max = track.scrollWidth - track.clientWidth;
       if ((delta < 0 && track.scrollLeft <= 0) || (delta > 0 && track.scrollLeft >= max - 1)) return;
       event.preventDefault();
-      track.dataset.scrolling = "true";
+      track.dataset['scrolling'] = "true";
       track.scrollLeft += delta;
       clearTimeout(wheelTimer);
       wheelTimer = setTimeout(() => {
-        delete track.dataset.scrolling;
+        delete track.dataset['scrolling'];
       }, 180);
     };
     track.addEventListener("scroll", update, { passive: true });
@@ -105,7 +105,7 @@ export function ProjectsHorizontal() {
     if (event.pointerType !== "mouse" || event.button !== 0) return;
     drag.current = { x: event.clientX, left: event.currentTarget.scrollLeft, moved: false };
     event.currentTarget.setPointerCapture(event.pointerId);
-    event.currentTarget.dataset.dragging = "true";
+    event.currentTarget.dataset['dragging'] = "true";
   };
   const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     const current = drag.current;
@@ -115,14 +115,14 @@ export function ProjectsHorizontal() {
   };
   const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     drag.current = null;
-    delete event.currentTarget.dataset.dragging;
+    delete event.currentTarget.dataset['dragging'];
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
   };
 
   return (
     <section
       id="projects"
-      className="project-gallery relative bg-background py-10 md:py-14"
+      className="project-gallery relative scroll-mt-24 bg-background py-10 md:py-14"
     >
       <div className="flex flex-col overflow-hidden">
         {/* Section header */}
