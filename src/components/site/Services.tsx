@@ -22,30 +22,16 @@ export function Services() {
       className="bg-background px-5 pb-20 pt-6 md:px-8 md:pb-24"
     >
       <div className="mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-5 flex items-center gap-4"
-        >
-          <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-            Our Services
-          </span>
-          <span className="h-px w-16 bg-border md:w-28" />
-        </motion.div>
-
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 font-display text-2xl font-light leading-tight tracking-wide text-foreground md:text-3xl lg:text-4xl"
+          className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl"
         >
-          Crafting Spaces
-          <br />
-          for a <span className="text-bronze">Better Tomorrow</span>
+          Our Services
         </motion.h2>
+        <span className="mb-8 mt-4 block h-px w-16 bg-border md:w-28" />
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {SERVICES.map((service, i) => (
