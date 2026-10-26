@@ -10,6 +10,7 @@ export function CustomCursor() {
   const [mode, setMode] = useState<Mode>("default");
   const reducedMotion = useReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const faceRefs = useRef<(SVGPathElement | null)[]>([]);
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const px = useSpring(x, { stiffness: 300, damping: 28, mass: 0.6 });
@@ -79,6 +80,7 @@ export function CustomCursor() {
     const loop = () => {
       raf = requestAnimationFrame(loop);
       tiltRaw.set(tiltRaw.get() * 0.9);
+      drawPyramid(faceRefs.current, (spin.get() * Math.PI) / 180);
       if (!ctx || !canvas) return;
       const now = performance.now();
       const p = { x: px.get(), y: py.get(), t: now };
@@ -107,7 +109,7 @@ export function CustomCursor() {
       document.documentElement.removeEventListener("pointerleave", hide);
       document.documentElement.classList.remove("custom-cursor-active");
     };
-  }, [enabled, x, y, px, py, spinRaw, tiltRaw, reducedMotion]);
+  }, [enabled, x, y, px, py, spinRaw, tiltRaw, spin, reducedMotion]);
 
   if (!enabled) return null;
 
@@ -120,12 +122,11 @@ export function CustomCursor() {
           animate={{ scale: mode === "link" ? 1.35 : 1, rotate: mode === "link" ? 45 : 0 }}
           transition={{ duration: reducedMotion ? 0 : 0.25 }}
         >
-          <motion.div className="cursor-pyramid" style={{ rotateY: spin, rotateZ: tilt, rotateX: -22 }}>
-            <span className="pyr-face pyr-f1" />
-            <span className="pyr-face pyr-f2" />
-            <span className="pyr-face pyr-f3" />
-            <span className="pyr-face pyr-f4" />
-          </motion.div>
+          <motion.svg className="cursor-pyramid" width="22" height="20" viewBox="0 0 22 20" style={{ rotate: tilt }}>
+            {[0, 1, 2, 3].map((i) => (
+              <path key={i} ref={(el) => { faceRefs.current[i] = el; }} strokeWidth="0.6" strokeLinejoin="round" />
+            ))}
+          </motion.svg>
         </motion.div>
         <motion.span
           className="cursor-view-label"
@@ -143,4 +144,29 @@ export function CustomCursor() {
     </div>,
     document.body,
   );
+}
+
+const LIGHT = -0.6; // light from upper-left
+function drawPyramid(faces: (SVGPathElement | null)[], angle: number) {
+  const cx = 11, cy = 15, rx = 9, ry = 3.6;
+  const apex = `11,1.5`;
+  const corners = [0, 1, 2, 3].map((k) => {
+    const a = angle + (k * Math.PI) / 2 + Math.PI / 4;
+    return [cx + rx * Math.cos(a), cy + ry * Math.sin(a)] as const;
+  });
+  const order = [0, 1, 2, 3]
+    .map((k) => ({ k, mid: angle + (k * Math.PI) / 2 + Math.PI / 2 }))
+    .sort((a, b) => Math.sin(a.mid) - Math.sin(b.mid));
+  order.forEach(({ k, mid }, idx) => {
+    const el = faces[idx];
+    if (!el) return;
+    const facing = Math.sin(mid) > -0.05;
+    const [a, b] = [corners[k], corners[(k + 1) % 4]];
+    el.setAttribute("d", `M${apex} L${a[0].toFixed(2)},${a[1].toFixed(2)} L${b[0].toFixed(2)},${b[1].toFixed(2)} Z`);
+    const lit = 0.5 + 0.5 * Math.cos(mid - Math.PI / 2 + LIGHT);
+    const l = (0.3 + lit * 0.5).toFixed(3);
+    el.setAttribute("fill", `oklch(${l} 0.09 192)`);
+    el.setAttribute("stroke", "oklch(0.75 0.08 60)");
+    el.style.opacity = facing ? "1" : "0";
+  });
 }

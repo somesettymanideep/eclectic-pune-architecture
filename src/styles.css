@@ -152,17 +152,8 @@
 .cursor-arrow, .cursor-follow { position: absolute; top: 0; left: 0; }
 .cursor-arrow { mix-blend-mode: difference; }
 .cursor-arrow svg { display: block; margin: -1px 0 0 -1px; }
-.cursor-pyramid-wrap { position: absolute; left: 14px; top: 16px; width: 18px; height: 16px; perspective: 120px; transform-style: preserve-3d; }
-.cursor-pyramid { position: relative; width: 18px; height: 16px; transform-style: preserve-3d; }
-.pyr-face {
-  position: absolute; left: 0; bottom: 0; width: 18px; height: 17px;
-  clip-path: polygon(50% 0, 100% 100%, 0 100%);
-  transform-origin: 50% 100%;
-}
-.pyr-f1 { transform: translateZ(9px) rotateX(32deg); background: linear-gradient(170deg, oklch(0.8 0.1 190), oklch(0.5 0.09 195)); }
-.pyr-f2 { transform: rotateY(90deg) translateZ(9px) rotateX(32deg); background: linear-gradient(170deg, oklch(0.62 0.1 192), oklch(0.36 0.07 198)); }
-.pyr-f3 { transform: rotateY(180deg) translateZ(9px) rotateX(32deg); background: linear-gradient(170deg, oklch(0.45 0.07 195), oklch(0.25 0.04 200)); }
-.pyr-f4 { transform: rotateY(270deg) translateZ(9px) rotateX(32deg); background: linear-gradient(170deg, oklch(0.72 0.08 60), oklch(0.45 0.06 55)); }
+.cursor-pyramid-wrap { position: absolute; left: 12px; top: 14px; width: 22px; height: 20px; }
+.cursor-pyramid { display: block; overflow: visible; filter: drop-shadow(0 1px 1.5px oklch(0 0 0 / 0.45)); }
 .cursor-view-label {
   position: absolute; left: 38px; top: 18px;
   padding: 2px 8px; border-radius: 9999px;
