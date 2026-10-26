@@ -37,6 +37,7 @@ function ProjectCard({
 }) {
   return (
     <div
+      data-cursor-view
       className={`group relative shrink-0 cursor-pointer overflow-hidden rounded-lg bg-card ${className}`}
     >
       <img
