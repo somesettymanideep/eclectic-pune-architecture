@@ -86,16 +86,16 @@ export function CustomCursor() {
       const p = { x: px.get(), y: py.get(), t: now };
       const last = pts[pts.length - 1];
       if (!last || Math.hypot(p.x - last.x, p.y - last.y) > 0.5) pts.push(p);
-      while (pts.length && now - pts[0].t > LIFE) pts.shift();
+      while (pts.length && now - pts[0]!.t > LIFE) pts.shift();
       ctx.clearRect(0, 0, innerWidth, innerHeight);
       if (reducedMotion) return;
       for (let i = 1; i < pts.length; i++) {
-        const a = 1 - (now - pts[i].t) / LIFE;
+        const a = 1 - (now - pts[i]!.t) / LIFE;
         ctx.strokeStyle = `rgba(56, 178, 172, ${a * 0.6})`;
         ctx.lineWidth = 1.5 * a + 0.3;
         ctx.beginPath();
-        ctx.moveTo(pts[i - 1].x, pts[i - 1].y);
-        ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.moveTo(pts[i - 1]!.x, pts[i - 1]!.y);
+        ctx.lineTo(pts[i]!.x, pts[i]!.y);
         ctx.stroke();
       }
     };
