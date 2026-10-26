@@ -27,8 +27,10 @@ export function CustomCursor() {
     if (!enabled || !visible) { history.current = []; return; }
     const faces = projectPyramid(reducedMotion ? 0.6 : smoothTurn.get(), reducedMotion ? 0.42 : smoothTilt.get());
     pyramid.current?.querySelectorAll("polygon").forEach((face, index) => {
-      face.setAttribute("points", faces[index].points);
-      face.style.filter = `brightness(${faces[index].brightness})`;
+      const projected = faces[index];
+      if (!projected) return;
+      face.setAttribute("points", projected.points);
+      face.style.filter = `brightness(${projected.brightness})`;
     });
     if (reducedMotion) return;
     const px = trailX.get() + 18;
