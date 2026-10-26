@@ -57,7 +57,7 @@ export function Services() {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-3 md:p-4">
-                <h3 className="font-display text-sm font-light leading-snug text-foreground md:text-base">
+                <h3 className="font-display text-sm font-light leading-snug text-media-foreground md:text-base">
                   {service.title[0]}
                   <br />
                   {service.title[1]}
@@ -65,7 +65,7 @@ export function Services() {
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  className="mt-2 inline-flex items-center gap-1.5 text-[11px] tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+                  className="mt-2 inline-flex items-center gap-1.5 text-[11px] tracking-wide text-media-foreground/70 transition-colors hover:text-media-foreground"
                 >
                   Read More
                   <svg

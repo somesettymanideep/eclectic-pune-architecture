@@ -40,9 +40,14 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-bronze: var(--bronze);
+  --color-media-foreground: var(--media-foreground);
+  --color-media-background: var(--media-background);
 }
 
 :root {
+  color-scheme: dark;
+  --media-foreground: oklch(0.985 0 0);
+  --media-background: oklch(0.04 0 0);
   --radius: 0.5rem;
   --background: oklch(0.04 0 0);
   --foreground: oklch(0.985 0 0);
@@ -64,6 +69,27 @@
   --input: oklch(0.22 0 0);
   --ring: oklch(0.4 0 0);
   --bronze: oklch(0.66 0.055 55);
+}
+
+:root.light {
+  color-scheme: light;
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.17 0 0);
+  --card: oklch(0.96 0 0);
+  --card-foreground: oklch(0.17 0 0);
+  --popover: oklch(0.985 0 0);
+  --popover-foreground: oklch(0.17 0 0);
+  --primary: oklch(0.17 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.92 0 0);
+  --secondary-foreground: oklch(0.17 0 0);
+  --muted: oklch(0.92 0 0);
+  --muted-foreground: oklch(0.44 0 0);
+  --accent: oklch(0.92 0 0);
+  --accent-foreground: oklch(0.17 0 0);
+  --border: oklch(0.82 0 0);
+  --input: oklch(0.82 0 0);
+  --ring: oklch(0.5 0 0);
 }
 
 @layer base {
@@ -97,10 +123,10 @@
   align-items: center;
   padding: 0.3rem 0.8rem;
   border-radius: 9999px;
-  border: 1px solid color-mix(in oklab, var(--color-foreground) 14%, transparent);
-  background-color: color-mix(in oklab, oklch(0.04 0 0) 55%, transparent);
+  border: 1px solid color-mix(in oklab, var(--media-foreground) 14%, transparent);
+  background-color: color-mix(in oklab, var(--media-background) 55%, transparent);
   backdrop-filter: blur(8px);
   font-size: 0.6875rem;
   letter-spacing: 0.06em;
-  color: color-mix(in oklab, var(--color-foreground) 88%, transparent);
+  color: color-mix(in oklab, var(--media-foreground) 88%, transparent);
 }
