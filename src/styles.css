@@ -152,8 +152,8 @@
 .cursor-arrow, .cursor-follow { position: absolute; top: 0; left: 0; }
 .cursor-arrow { mix-blend-mode: difference; }
 .cursor-arrow svg { display: block; margin: -1px 0 0 -1px; }
-.cursor-pyramid-wrap { position: absolute; left: 14px; top: 16px; width: 18px; height: 16px; perspective: 120px; }
-.cursor-pyramid { position: relative; width: 18px; height: 16px; transform-style: preserve-3d; filter: drop-shadow(0 0 0.5px var(--cursor-teal)); }
+.cursor-pyramid-wrap { position: absolute; left: 14px; top: 16px; width: 18px; height: 16px; perspective: 120px; transform-style: preserve-3d; }
+.cursor-pyramid { position: relative; width: 18px; height: 16px; transform-style: preserve-3d; }
 .pyr-face {
   position: absolute; left: 0; bottom: 0; width: 18px; height: 17px;
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
