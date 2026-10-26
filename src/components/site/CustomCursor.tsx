@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion, useAnimationFrame, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { motion, useAnimationFrame, useMotionValue, useSpring } from "framer-motion";
 import { projectPyramid } from "@/lib/cursor-pyramid";
 
 export function CustomCursor() {
@@ -9,7 +9,7 @@ export function CustomCursor() {
   const [pressed, setPressed] = useState(false);
   const [interactive, setInteractive] = useState(false);
   const [view, setView] = useState(false);
-  const reducedMotion = useReducedMotion();
+  const [reducedMotion, setReducedMotion] = useState(false);
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const trailX = useSpring(x, { stiffness: 520, damping: 34, mass: 0.45 });
@@ -51,14 +51,24 @@ export function CustomCursor() {
 
   useEffect(() => {
     const query = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotion = () => {
+      setReducedMotion(motionQuery.matches);
+      history.current = [];
+    };
     const update = () => {
       setEnabled(query.matches);
       setVisible(false);
       document.documentElement.classList.remove("custom-cursor-active");
     };
     update();
+    updateMotion();
     query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
+    motionQuery.addEventListener("change", updateMotion);
+    return () => {
+      query.removeEventListener("change", update);
+      motionQuery.removeEventListener("change", updateMotion);
+    };
   }, []);
 
   useEffect(() => {
