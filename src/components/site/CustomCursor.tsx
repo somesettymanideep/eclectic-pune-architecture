@@ -1,16 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+
+type Mode = "default" | "link" | "view";
 
 export function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [pressed, setPressed] = useState(false);
+  const [mode, setMode] = useState<Mode>("default");
   const reducedMotion = useReducedMotion();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
-  const trailX = useSpring(x, { stiffness: 260, damping: 25, mass: 0.65 });
-  const trailY = useSpring(y, { stiffness: 260, damping: 25, mass: 0.65 });
+  const px = useSpring(x, { stiffness: 300, damping: 28, mass: 0.6 });
+  const py = useSpring(y, { stiffness: 300, damping: 28, mass: 0.6 });
+  const spinRaw = useMotionValue(0);
+  const tiltRaw = useMotionValue(0);
+  const spin = useSpring(spinRaw, { stiffness: 120, damping: 18 });
+  const tilt = useSpring(tiltRaw, { stiffness: 160, damping: 20 });
 
   useEffect(() => {
     const query = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -27,58 +34,111 @@ export function CustomCursor() {
   useEffect(() => {
     if (!enabled) return;
     let initialized = false;
+    let lastX = 0;
+    let baseSpin = 0;
     const hide = () => {
       setVisible(false);
-      setPressed(false);
       document.documentElement.classList.remove("custom-cursor-active");
     };
     const move = (event: PointerEvent) => {
       if (event.pointerType === "touch") { hide(); return; }
-      x.set(event.clientX);
-      y.set(event.clientY);
-      if (!initialized) {
-        trailX.jump(event.clientX);
-        trailY.jump(event.clientY);
-        initialized = true;
-      }
-      const editable = event.target instanceof Element && event.target.closest("input, textarea, [contenteditable='true']");
-      if (editable) { hide(); return; }
+      const cx = event.clientX, cy = event.clientY;
+      if (!initialized) { px.jump(cx); py.jump(cy); lastX = cx; initialized = true; }
+      const dx = cx - lastX;
+      lastX = cx;
+      baseSpin += dx * 0.6;
+      spinRaw.set(baseSpin);
+      tiltRaw.set(Math.max(-25, Math.min(25, dx * 1.5)));
+      x.set(cx); y.set(cy);
+      const target = event.target instanceof Element ? event.target : null;
+      if (target?.closest("input, textarea, select, [contenteditable='true']")) { hide(); return; }
+      if (target?.closest("a, button, [role='button'], label")) setMode("link");
+      else if (target?.closest("[data-cursor='view']")) setMode("view");
+      else setMode("default");
       setVisible(true);
       document.documentElement.classList.add("custom-cursor-active");
     };
-    const down = () => setPressed(true);
-    const up = () => setPressed(false);
     window.addEventListener("pointermove", move, { passive: true });
-    window.addEventListener("pointerdown", down);
-    window.addEventListener("pointerup", up);
     window.addEventListener("blur", hide);
     document.documentElement.addEventListener("pointerleave", hide);
+
+    // Fading teal trail
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    const pts: { x: number; y: number; t: number }[] = [];
+    let raf = 0;
+    const resize = () => {
+      if (!canvas) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+      ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+    const LIFE = 220;
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      tiltRaw.set(tiltRaw.get() * 0.9);
+      if (!ctx || !canvas) return;
+      const now = performance.now();
+      const p = { x: px.get(), y: py.get(), t: now };
+      const last = pts[pts.length - 1];
+      if (!last || Math.hypot(p.x - last.x, p.y - last.y) > 0.5) pts.push(p);
+      while (pts.length && now - pts[0].t > LIFE) pts.shift();
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      if (reducedMotion) return;
+      for (let i = 1; i < pts.length; i++) {
+        const a = 1 - (now - pts[i].t) / LIFE;
+        ctx.strokeStyle = `rgba(56, 178, 172, ${a * 0.6})`;
+        ctx.lineWidth = 1.5 * a + 0.3;
+        ctx.beginPath();
+        ctx.moveTo(pts[i - 1].x, pts[i - 1].y);
+        ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.stroke();
+      }
+    };
+    raf = requestAnimationFrame(loop);
+
     return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerdown", down);
-      window.removeEventListener("pointerup", up);
       window.removeEventListener("blur", hide);
       document.documentElement.removeEventListener("pointerleave", hide);
       document.documentElement.classList.remove("custom-cursor-active");
     };
-  }, [enabled, x, y, trailX, trailY]);
+  }, [enabled, x, y, px, py, spinRaw, tiltRaw, reducedMotion]);
 
   if (!enabled) return null;
 
   return createPortal(
     <div className="custom-cursor" aria-hidden="true" data-visible={visible}>
-      <motion.div className="custom-cursor-point" style={{ x, y }} />
-      <motion.div className="custom-cursor-position" style={{ x: reducedMotion ? x : trailX, y: reducedMotion ? y : trailY }}>
+      <canvas ref={canvasRef} className="cursor-trail" />
+      <motion.div className="cursor-follow" style={{ x: reducedMotion ? x : px, y: reducedMotion ? y : py }}>
         <motion.div
-          className="custom-cursor-crosshair"
-          animate={{ scale: pressed ? 0.75 : 1 }}
-          transition={{ duration: reducedMotion ? 0 : 0.15 }}
+          className="cursor-pyramid-wrap"
+          animate={{ scale: mode === "link" ? 1.35 : 1, rotate: mode === "link" ? 45 : 0 }}
+          transition={{ duration: reducedMotion ? 0 : 0.25 }}
         >
-          <span className="cursor-arm cursor-arm-top" />
-          <span className="cursor-arm cursor-arm-right" />
-          <span className="cursor-arm cursor-arm-bottom" />
-          <span className="cursor-arm cursor-arm-left" />
+          <motion.div className="cursor-pyramid" style={{ rotateY: spin, rotateZ: tilt, rotateX: -22 }}>
+            <span className="pyr-face pyr-f1" />
+            <span className="pyr-face pyr-f2" />
+            <span className="pyr-face pyr-f3" />
+            <span className="pyr-face pyr-f4" />
+          </motion.div>
         </motion.div>
+        <motion.span
+          className="cursor-view-label"
+          animate={{ opacity: mode === "view" ? 1 : 0, x: mode === "view" ? 0 : -6 }}
+          transition={{ duration: 0.2 }}
+        >
+          View
+        </motion.span>
+      </motion.div>
+      <motion.div className="cursor-arrow" style={{ x, y }}>
+        <svg width="16" height="20" viewBox="0 0 16 20">
+          <path d="M1 1 L1 16 L5 12.5 L8 19 L10.5 18 L7.5 11.5 L13 11.5 Z" fill="var(--cursor-ink)" stroke="var(--media-background)" strokeWidth="1" strokeLinejoin="round" />
+        </svg>
       </motion.div>
     </div>,
     document.body,
