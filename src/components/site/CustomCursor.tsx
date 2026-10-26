@@ -161,7 +161,7 @@ function drawPyramid(faces: (SVGPathElement | null)[], angle: number) {
     const el = faces[idx];
     if (!el) return;
     const facing = Math.sin(mid) > -0.05;
-    const [a, b] = [corners[k], corners[(k + 1) % 4]];
+    const a = corners[k]!, b = corners[(k + 1) % 4]!;
     el.setAttribute("d", `M${apex} L${a[0].toFixed(2)},${a[1].toFixed(2)} L${b[0].toFixed(2)},${b[1].toFixed(2)} Z`);
     const lit = 0.5 + 0.5 * Math.cos(mid - Math.PI / 2 + LIGHT);
     const l = (0.3 + lit * 0.5).toFixed(3);
