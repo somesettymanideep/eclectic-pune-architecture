@@ -3,9 +3,10 @@ import seaLogo from "@/assets/sea-logo-exact.png.asset.json";
 import { mediaUrl } from "@/lib/media-url";
 
 const MENU = [
+  { label: "Home", active: true },
   { label: "About", active: false },
   { label: "Services", active: false },
-  { label: "Portfolio", active: true },
+  { label: "Portfolio", active: false },
   { label: "Contact", active: false },
 ];
 
