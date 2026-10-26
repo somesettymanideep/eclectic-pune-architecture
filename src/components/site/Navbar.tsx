@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import seaLogo from "@/assets/sea-logo-exact.png.asset.json";
 import { mediaUrl } from "@/lib/media-url";
@@ -11,10 +12,30 @@ const MENU = [
 ];
 
 export function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      {/* translucent scrim so the logo and menu stay readable over the video */}
-      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 via-background/30 to-transparent" />
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-500 ease-out ${
+        scrolled
+          ? "border-border bg-background/85 backdrop-blur-md"
+          : "border-transparent bg-transparent"
+      }`}
+    >
+      {/* translucent scrim only while at the very top, so the logo and menu
+          stay readable over the video */}
+      <div
+        className={`absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 via-background/30 to-transparent transition-opacity duration-500 ${
+          scrolled ? "opacity-0" : "opacity-100"
+        }`}
+      />
 
       <nav className="relative flex items-center justify-between px-5 py-3 md:px-8">
         <Link
