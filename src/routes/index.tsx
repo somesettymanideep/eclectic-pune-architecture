@@ -11,28 +11,32 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "Moco Design Studio — Changing the Cityscape of Pune",
+        title: "best Architecture company in vijayawada",
       },
       {
         name: "description",
         content:
-          "Moco Design Studio is an architecture practice changing the cityscape of Pune — IT parks, corporate campuses, high-end residences and educational institutions.",
+          "Studio for Eclectic Architecture is a dynamic firm offering architecture, interiors and landscape design solutions across residential, commercial, villas, apartments, layouts and resorts.",
       },
       {
         property: "og:title",
-        content: "Moco Design Studio — Changing the Cityscape of Pune",
+        content: "best Architecture company in vijayawada",
       },
       {
         property: "og:description",
         content:
-          "Premium architecture studio in Pune. IT parks, corporate campuses, high-end residences and educational institutions.",
+          "Studio for Eclectic Architecture — architecture, interiors and landscape design solutions tailored to every project.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Moco Design Studio" },
+      {
+        name: "twitter:title",
+        content: "best Architecture company in vijayawada",
+      },
       {
         name: "twitter:description",
-        content: "Changing the Cityscape of Pune since 2006.",
+        content:
+          "Studio for Eclectic Architecture — architecture, interiors and landscape design solutions.",
       },
     ],
   }),
