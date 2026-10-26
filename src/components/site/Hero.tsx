@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import heroVideo from "@/assets/videos/vija-hero.mp4.asset.json";
-import heroWebm from "@/assets/videos/vija-hero.webm.asset.json";
 import heroPoster from "@/assets/videos/vija-hero-poster.jpg.asset.json";
 import { mediaUrl } from "@/lib/media-url";
 
@@ -31,7 +30,6 @@ export function Hero() {
           poster={mediaUrl(heroPoster)}
           className="h-full w-full object-cover"
         >
-          <source src={mediaUrl(heroWebm)} type="video/webm" />
           <source src={mediaUrl(heroVideo)} type="video/mp4" />
         </video>
       </motion.div>
