@@ -3,12 +3,10 @@ import seaLogo from "@/assets/sea-logo-exact.png.asset.json";
 import { mediaUrl } from "@/lib/media-url";
 
 const MENU = [
-  { label: "Expertise", active: true },
-  { label: "Principal", active: false },
-  { label: "Us", active: false },
-  { label: "Impact", active: false },
-  { label: "Reach", active: false },
-  { label: "Buzz", active: false },
+  { label: "About", active: false },
+  { label: "Services", active: false },
+  { label: "Portfolio", active: true },
+  { label: "Contact", active: false },
 ];
 
 export function Navbar() {
