@@ -31,8 +31,8 @@ export function Hero() {
           poster={mediaUrl(heroPoster)}
           className="h-full w-full object-cover"
         >
-          <source src={mediaUrl(heroWebm)} type="video/webm" />
           <source src={mediaUrl(heroVideo)} type="video/mp4" />
+          <source src={mediaUrl(heroWebm)} type="video/webm" />
         </video>
       </motion.div>
 

@@ -6,6 +6,8 @@ import { ProjectsHorizontal } from "@/components/site/ProjectsHorizontal";
 import { About } from "@/components/site/About";
 import { Services } from "@/components/site/Services";
 import { Footer } from "@/components/site/Footer";
+import heroPoster from "@/assets/videos/vija-hero-poster.jpg.asset.json";
+import { mediaUrl } from "@/lib/media-url";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,6 +31,8 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: mediaUrl(heroPoster) },
+      { name: "twitter:image", content: mediaUrl(heroPoster) },
       {
         name: "twitter:title",
         content: "best Architecture company in vijayawada",
