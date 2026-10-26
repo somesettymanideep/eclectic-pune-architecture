@@ -6,6 +6,7 @@ import { ProjectsHorizontal } from "@/components/site/ProjectsHorizontal";
 import { About } from "@/components/site/About";
 import { Services } from "@/components/site/Services";
 import { Footer } from "@/components/site/Footer";
+import { CustomCursor } from "@/components/site/CustomCursor";
 import heroPoster from "@/assets/videos/vija-hero-poster.jpg.asset.json";
 import { mediaUrl } from "@/lib/media-url";
 
@@ -60,6 +61,7 @@ function Index() {
         <Services />
       </main>
       <Footer />
+      <CustomCursor />
     </div>
   );
 }

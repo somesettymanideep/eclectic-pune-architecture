@@ -13,3 +13,4 @@
 - Prefer a stream-copied H.264 MP4 with fast-start metadata and codec-level letterbox cropping for the hero; retain a full-resolution VP9 fallback for browsers without H.264 decoding, because the primary preserves original picture detail while the fallback ensures playback compatibility.
 - Configure Netlify deployment in `netlify.toml` with `NITRO_PRESET=netlify` and publish `dist`; Nitro emits the server function separately, while Lovable retains its own deployment preset.
 - Theme switching uses a root `light` class and semantic CSS tokens, with browser-only preference storage read after hydration; keep photo-overlay text on fixed media tokens so captions stay readable in both themes.
+- Render the site cursor in a body portal with difference blending and motion-value springs; enable it only for fine hover pointers and preserve native text-input cursors to avoid touch and editing regressions.
