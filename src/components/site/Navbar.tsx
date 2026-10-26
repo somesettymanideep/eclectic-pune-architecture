@@ -30,10 +30,11 @@ export function Navbar() {
       }`}
     >
       {/* translucent scrim only while at the very top, so the logo and menu
-          stay readable over the video */}
+          stay readable over the video; the light theme keeps the header fully
+          transparent there and uses the fixed media-token menu colours */}
       <div
         className={`absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 via-background/30 to-transparent transition-opacity duration-500 ${
-          scrolled ? "opacity-0" : "opacity-100"
+          scrolled ? "opacity-0" : "opacity-100 light:opacity-0"
         }`}
       />
 
@@ -59,9 +60,13 @@ export function Navbar() {
                 href="#"
                 onClick={(e) => e.preventDefault()}
                 className={`text-sm font-medium uppercase tracking-[0.14em] transition-colors duration-300 ${
-                  item.active
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                  scrolled
+                    ? item.active
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                    : item.active
+                      ? "text-media-foreground"
+                      : "text-media-foreground/60 hover:text-media-foreground"
                 }`}
               >
                 {item.label}
@@ -76,8 +81,16 @@ export function Navbar() {
           aria-label="Open menu"
           className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
         >
-          <span className="h-px w-6 bg-foreground" />
-          <span className="h-px w-6 bg-foreground" />
+          <span
+            className={`h-px w-6 transition-colors duration-300 ${
+              scrolled ? "bg-foreground" : "bg-media-foreground"
+            }`}
+          />
+          <span
+            className={`h-px w-6 transition-colors duration-300 ${
+              scrolled ? "bg-foreground" : "bg-media-foreground"
+            }`}
+          />
         </button>
       </nav>
     </header>
