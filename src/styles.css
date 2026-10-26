@@ -138,31 +138,31 @@
 }
 
 .custom-cursor {
+  --cursor-teal: oklch(0.68 0.11 190);
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  mix-blend-mode: difference;
   opacity: 0;
   transition: opacity 120ms ease;
 }
+.custom-cursor * { pointer-events: none; }
 .custom-cursor[data-visible="true"] { opacity: 1; }
-.custom-cursor-position, .custom-cursor-point { position: absolute; top: 0; left: 0; }
-.custom-cursor-point {
-  width: 3px;
-  height: 3px;
-  margin: -1.5px;
-  border-radius: 50%;
-  background: var(--cursor-ink);
+.cursor-trail { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cursor-arrow, .cursor-follow { position: absolute; top: 0; left: 0; }
+.cursor-arrow { mix-blend-mode: difference; }
+.cursor-arrow svg { display: block; margin: -1px 0 0 -1px; }
+.cursor-pyramid-wrap { position: absolute; left: 12px; top: 14px; width: 22px; height: 20px; }
+.cursor-pyramid { display: block; overflow: visible; filter: drop-shadow(0 1px 1.5px oklch(0 0 0 / 0.45)); }
+.cursor-view-label {
+  position: absolute; left: 38px; top: 18px;
+  padding: 2px 8px; border-radius: 9999px;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--media-foreground);
+  background: color-mix(in oklab, var(--media-background) 65%, transparent);
+  border: 1px solid color-mix(in oklab, var(--cursor-teal) 60%, transparent);
+  white-space: nowrap;
 }
-.custom-cursor-crosshair { position: absolute; width: 32px; height: 32px; top: -16px; left: -16px; }
-.cursor-arm { position: absolute; background: var(--cursor-ink); }
-.cursor-arm-top, .cursor-arm-bottom { width: 1px; height: 9px; left: 15.5px; }
-.cursor-arm-top { top: 0; }
-.cursor-arm-bottom { bottom: 0; }
-.cursor-arm-left, .cursor-arm-right { height: 1px; width: 9px; top: 15.5px; }
-.cursor-arm-left { left: 0; }
-.cursor-arm-right { right: 0; }
 @media (prefers-reduced-motion: reduce) {
   .custom-cursor { transition: none; }
 }
