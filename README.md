@@ -31,3 +31,18 @@ The logo, project images, and hero video use hosted Lovable assets. Their pointe
 paths are resolved to the live site's absolute URL by `src/lib/media-url.ts`, so
 they work on localhost and other hosts without a Lovable asset proxy. An internet
 connection is required for those files; the service images are bundled locally.
+
+## Deploy to Netlify
+
+The repository includes `netlify.toml` with the required settings:
+
+- Build command: `bun run build`
+- Publish directory: `dist` (not `dist/client`)
+- Environment variable: `NITRO_PRESET=netlify`
+
+Nitro's Netlify adapter generates the public files in `dist` and the server
+function in `.netlify/functions-internal`. Keep both outputs; this is a
+server-rendered app, not a static SPA. No manual catch-all redirect is needed.
+
+Sync these changes to the repository connected to Netlify and trigger a new
+deployment. The checked-in configuration overrides the old UI publish setting.
