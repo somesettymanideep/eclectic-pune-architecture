@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   motion,
-  useMotionValue,
   useScroll,
   useTransform,
 } from "framer-motion";
@@ -10,12 +9,6 @@ import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital
 import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
 import dudhupudiConstruction from "@/assets/projects/dudhupudi-construction.png.asset.json";
 import { mediaUrl } from "@/lib/media-url";
-
-const clamp = (v: number, min: number, max: number) =>
-  Math.min(max, Math.max(min, v));
-
-// Shared container gutter so the header, the cards and the progress row align
-const GUTTER = "px-6 md:px-10 lg:px-16";
 
 function ProjectCard({
   name,
@@ -56,24 +49,13 @@ export function ProjectsHorizontal() {
   const trackRef = useRef<HTMLDivElement>(null);
 
   const [shift, setShift] = useState(0);
-  const shiftRef = useRef(0);
-  shiftRef.current = shift;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  const dragX = useMotionValue(0);
-  const baseX = useTransform(scrollYProgress, [0, 1], [0, -shift]);
-  const x = useTransform(() =>
-    clamp(baseX.get() + dragX.get(), -shiftRef.current, 0),
-  );
-
-  const dotLeft = useTransform(x, (v) => {
-    const max = Math.max(1, shiftRef.current);
-    return `${clamp(-v / max, 0, 1) * 100}%`;
-  });
+  const x = useTransform(scrollYProgress, (v) => -v * shift);
 
   useEffect(() => {
     const measure = () => {
@@ -84,30 +66,18 @@ export function ProjectsHorizontal() {
     measure();
     const t = window.setTimeout(measure, 600);
     window.addEventListener("resize", measure);
+
+    const ro = new ResizeObserver(measure);
+    if (trackRef.current) {
+      ro.observe(trackRef.current);
+    }
+
     return () => {
       window.removeEventListener("resize", measure);
       window.clearTimeout(t);
+      ro.disconnect();
     };
   }, []);
-
-  // Pointer drag with momentum nudge
-  const dragging = useRef(false);
-  const startX = useRef(0);
-  const startDrag = useRef(0);
-
-  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    dragging.current = true;
-    startX.current = e.clientX;
-    startDrag.current = dragX.get();
-    e.currentTarget.setPointerCapture(e.pointerId);
-  };
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragging.current) return;
-    dragX.set(startDrag.current + (e.clientX - startX.current));
-  };
-  const endDrag = () => {
-    dragging.current = false;
-  };
 
   return (
     <section
@@ -118,7 +88,7 @@ export function ProjectsHorizontal() {
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pb-4 pt-20 md:pb-6 md:pt-24">
         {/* Section header */}
         <div
-          className={`flex items-end justify-between pb-6 ${GUTTER}`}
+          className={`flex items-end justify-between pb-6 `}
         >
           <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
             Our Projects
@@ -128,18 +98,12 @@ export function ProjectsHorizontal() {
           </span>
         </div>
 
-        {/* Horizontal track — driven by vertical scroll, also draggable */}
-        <div
-          className="cursor-grab touch-pan-y select-none active:cursor-grabbing"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
-        >
+        {/* Horizontal track — driven by vertical scroll */}
+        <div className="select-none">
           <motion.div
             ref={trackRef}
             style={{ x }}
-            className={`flex w-max items-stretch gap-3 ${GUTTER}`}
+            className="flex w-max items-stretch gap-3 px-5 md:px-8"
           >
             <ProjectCard
               name="Gangadhar Estate"
@@ -173,19 +137,6 @@ export function ProjectsHorizontal() {
               className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
           </motion.div>
-        </div>
-
-        {/* Progress indicator — dot + line */}
-        <div className={`flex items-center gap-4 pt-6 ${GUTTER}`}>
-          <div className="relative h-px w-56 max-w-[60vw] bg-border md:w-72">
-            <motion.span
-              style={{ left: dotLeft }}
-              className="absolute top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground"
-            />
-          </div>
-          <span className="hidden text-[10px] tracking-[0.2em] text-muted-foreground md:block">
-            DRAG OR SCROLL
-          </span>
         </div>
       </div>
     </section>
