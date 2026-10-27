@@ -4,9 +4,11 @@ import heroVideo from "@/assets/videos/vija-hero.mp4.asset.json";
 import heroWebm from "@/assets/videos/vija-hero.webm.asset.json";
 import heroPoster from "@/assets/videos/vija-hero-poster.jpg.asset.json";
 import { mediaUrl } from "@/lib/media-url";
+import { useHeroPlayback } from "@/hooks/use-hero-playback";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const videoRef = useHeroPlayback();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -23,11 +25,12 @@ export function Hero() {
         className="absolute inset-0"
       >
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           poster={mediaUrl(heroPoster)}
           className="h-full w-full object-cover"
         >
