@@ -115,7 +115,7 @@ export function ProjectsHorizontal() {
       ref={sectionRef}
       className="relative h-[190svh] bg-background"
     >
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden py-6 md:py-10">
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pb-4 pt-20 md:pb-6 md:pt-24">
         {/* Section header */}
         <div
           className={`flex items-end justify-between pb-6 ${GUTTER} md:pb-8`}
