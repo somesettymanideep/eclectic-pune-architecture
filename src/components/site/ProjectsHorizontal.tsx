@@ -10,11 +10,6 @@ import gangadharEstate from "@/assets/projects/gangadhar-estate.png.asset.json";
 import krishnaSindhuraHospital from "@/assets/projects/krishna-sindhura-hospital.png.asset.json";
 import kishoreJainKmsInfra from "@/assets/projects/kishore-jain-kms-infra.png.asset.json";
 import dudhupudiConstruction from "@/assets/projects/dudhupudi-construction.png.asset.json";
-import krConstructions from "@/assets/projects/kr-constructions.png.asset.json";
-import sarikaEstate from "@/assets/projects/sarika-estate.png.asset.json";
-import manjunathaConstructions from "@/assets/projects/manjunatha-constructions.png.asset.json";
-import evergreenInfraNunna from "@/assets/projects/evergreen-infra-nunna.png.asset.json";
-import gravityCentral from "@/assets/projects/gravity-central.png.asset.json";
 import { mediaUrl } from "@/lib/media-url";
 
 const clamp = (v: number, min: number, max: number) =>
@@ -192,7 +187,7 @@ export function ProjectsHorizontal() {
               AUTO SCROLL {autoScroll ? "ON" : "OFF"}
             </button>
             <span className="text-[11px] tracking-[0.2em] text-muted-foreground">
-              ( 09 )
+              ( 04 )
             </span>
           </div>
         </div>
@@ -241,48 +236,6 @@ export function ProjectsHorizontal() {
               imgHeight={1131}
               className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
             />
-            {/* Stacked pair — K R Constructions / Sarika Estate */}
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
-              <ProjectCard
-                name="K R Constructions"
-                image={mediaUrl(krConstructions)}
-                imgWidth={1672}
-                imgHeight={941}
-                className="w-full min-h-0 flex-1"
-              />
-              <ProjectCard
-                name="Sarika Estate"
-                image={mediaUrl(sarikaEstate)}
-                imgWidth={1684}
-                imgHeight={934}
-                className="w-full min-h-0 flex-1"
-              />
-            </div>
-            {/* Tall card — Manjunatha Constructions */}
-            <ProjectCard
-              name="Manjunatha Constructions"
-              image={mediaUrl(manjunathaConstructions)}
-              imgWidth={1337}
-              imgHeight={1176}
-              className="h-[68svh] w-[62vw] sm:w-[42vw] lg:w-[28vw]"
-            />
-            {/* Stacked pair — Evergreen Infra Nunna / Gravity Central */}
-            <div className="flex h-[68svh] w-[86vw] shrink-0 flex-col gap-3 sm:w-[58vw] lg:w-[44vw]">
-              <ProjectCard
-                name="Evergreen Infra - Nunna"
-                image={mediaUrl(evergreenInfraNunna)}
-                imgWidth={1690}
-                imgHeight={931}
-                className="w-full min-h-0 flex-1"
-              />
-              <ProjectCard
-                name="Gravity Central"
-                image={mediaUrl(gravityCentral)}
-                imgWidth={1694}
-                imgHeight={929}
-                className="w-full min-h-0 flex-1"
-              />
-            </div>
             {/* End tile */}
             <a
               href="#"
