@@ -118,7 +118,7 @@ export function ProjectsHorizontal() {
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pb-4 pt-20 md:pb-6 md:pt-24">
         {/* Section header */}
         <div
-          className={`flex items-end justify-between pb-6 ${GUTTER} md:pb-8`}
+          className={`flex items-end justify-between pb-6 ${GUTTER}`}
         >
           <h2 className="font-display text-2xl font-light tracking-wide text-foreground md:text-3xl">
             Our Projects
@@ -176,7 +176,7 @@ export function ProjectsHorizontal() {
         </div>
 
         {/* Progress indicator — dot + line */}
-        <div className={`flex items-center gap-4 pt-8 ${GUTTER}`}>
+        <div className={`flex items-center gap-4 pt-6 ${GUTTER}`}>
           <div className="relative h-px w-56 max-w-[60vw] bg-border md:w-72">
             <motion.span
               style={{ left: dotLeft }}
